@@ -1,0 +1,296 @@
+/*
+ * Author: Renato Utsch Gonçalves
+ * Computer Science, UFMG
+ * Computer Graphics
+ * Practical exercise 2 - Boids
+ *
+ * Copyright (c) 2014 Renato Utsch <renatoutsch@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+#ifndef ENGINE_HPP
+#define ENGINE_HPP
+
+#include <vector>
+#include "gameObject/ObjectiveBoid.hpp"
+#include "gameObject/FollowBoid.hpp"
+#include "gameObject/Tower.hpp"
+#include "state/State.hpp"
+#include "state/StateManager.hpp"
+#include "system/System.hpp"
+#include "system/AnimationSystem.hpp"
+#include "system/CameraSystem.hpp"
+#include "system/CollisionSystem.hpp"
+#include "system/MovementSystem.hpp"
+#include "system/RenderSystem.hpp"
+#include "glfw.hpp"
+
+/**
+ * This class represents the main engine of the game.
+ * This class is a singleton. You can access its instance by
+ * Engine::getInstance() or by the convenience function getEngine().
+ * @see Engine::getInstance()
+ * @see getEngine()
+ **/
+class Engine {
+
+public:
+    /// Vector of follow boids.
+    typedef std::vector<FollowBoid> BoidVector;
+
+private:
+    /// The window of the engine.
+    GLFWwindow *_window;
+
+    /// The elapsed time since the mainLoop began, in seconds.
+    double _elapsedTime;
+
+    /// x position of the cursor.
+    double _cursorXPos;
+
+    /// y position of the cursor.
+    double _cursorYPos;
+
+    /// The objective boid.
+    ObjectiveBoid *_objectiveBoid;
+
+    /// The boids.
+    std::vector<FollowBoid> _boids;
+
+    /// The center tower.
+    Tower *_tower;
+
+    /// Point that represents the middle relative position of the follow boids.
+    /// This is 0 when there is no boid.
+    Point _middle;
+
+    /// Animation system.
+    AnimationSystem _animationSystem;
+
+    /// Camera system.
+    CameraSystem _cameraSystem;
+
+    /// Collision system.
+    CollisionSystem _collisionSystem;
+
+    /// Movement system.
+    MovementSystem _movementSystem;
+
+    /// Render system.
+    RenderSystem _renderSystem;
+
+    /// Inits the window system.
+    void initWindowSystem();
+
+    /// Inits the engine's systems.
+    void initSystems();
+
+    /// Inits the objects. Must be init'ed after the systems.
+    void initObjects();
+
+    /// Terminates the window system.
+    void terminateWindowSystem();
+
+    /// Terminates the objects.
+    void terminateObjects();
+
+    /// Terminates the engine's systems.
+    void terminateSystems();
+
+    /// Updates the middle position of the follow boids.
+    void updateMiddlePosition();
+
+    /**
+     * Main loop of the engine. Responsible for the frame-by-frame updates.
+     **/
+    void mainLoop();
+
+    /// Private constructor to make this class a singleton.
+    Engine();
+
+    // Disallow copy constructor and copy assignment operators for the
+    // singleton.
+    Engine(const Engine &);             // Don't implement.
+    Engine &operator=(const Engine &);  // Don't implement.
+
+public:
+    /**
+     * Returns the only instance of the Engine class.
+     * The convenience function getEngine() is provided to replace the verbose
+     * and ugly syntax Engine::getInstance() with the same result.
+     * @see getEngine()
+     **/
+    static Engine &getInstance() {
+        static Engine instance; // Guaranteed to be destroyed.
+                                // Instantiated on first use.
+
+        return instance;
+    }
+
+    /// Destructor.
+    ~Engine();
+
+    /**
+     * Takes control of execution and runs the game until an interrupt signal
+     * is given or the player asks to quit.
+     * This function takes care of initing the engine and terminating it.
+     * @return 0 on success or nonzero on error. This allows the run
+     * function to be used in main()'s return statement.'
+     **/
+    int run();
+
+    /**
+     * Adds a new boid to the flock at a random position near it.
+     **/
+    void addBoid();
+
+    /**
+     * Removes a random boid.
+     **/
+    void removeRandomBoid();
+
+    /**
+     * Error event to be generated by anyone, but mainly by glfw.
+     * @param error The ID of the error.
+     * @param description The char description of the error.
+     **/
+    void errorEvent(int error, const char *description);
+
+    /**
+     * Returns the middle relative position of the following boids.
+     **/
+    Point getMiddlePosition() {
+        return _middle;
+    }
+
+    /**
+     * Returns the middle absolute position of the following boids.
+     **/
+    Point getAbsoluteMiddlePosition() {
+        return Point(_objectiveBoid->position.x + _middle.x,
+                _objectiveBoid->position.y + _middle.y,
+                _objectiveBoid->position.z + _middle.z);
+    }
+
+    /**
+     * Saves the last x and y position in the given arguments.
+     * @param xpos will be replaced with the x position of the cursor.
+     * @param ypos will be replaced with the y position of the cursor.
+     **/
+    inline void getLastCursorPos(double *xpos, double *ypos) {
+        *xpos = _cursorXPos;
+        *ypos = _cursorYPos;
+    }
+
+    /**
+     * Sets the last x and y position in the given arguments.
+     **/
+    inline void setLastCursorPos(double xpos, double ypos) {
+        _cursorXPos = xpos;
+        _cursorYPos = ypos;
+    }
+
+    /**
+     * Returns the elapsed time since the mainLoop started, in seconds.
+     **/
+    inline double getElapsedTime() {
+        return _elapsedTime;
+    }
+
+    /**
+     * Returns the state manager of the engine.
+     **/
+    inline StateManager &getStateManager() {
+        return StateManager::getInstance();
+    }
+
+    /**
+     * Returns the window of the engine.
+     **/
+    inline GLFWwindow *getWindow() {
+        return _window;
+    }
+
+    /**
+     * Returns the objective boid.
+     **/
+    inline ObjectiveBoid &getObjectiveBoid() {
+        return *_objectiveBoid;
+    }
+
+    /**
+     * Returns the vector of boids.
+     **/
+    inline BoidVector &getBoids() {
+        return _boids;
+    }
+
+    /**
+     * Returns the tower.
+     **/
+    inline Tower &getTower() {
+        return *_tower;
+    }
+
+    /**
+     * Returns the animation system.
+     **/
+    inline AnimationSystem &getAnimationSystem() {
+        return _animationSystem;
+    }
+
+    /**
+     * Returns the camera system.
+     **/
+    inline CameraSystem &getCameraSystem() {
+        return _cameraSystem;
+    }
+
+    /**
+     * Returns the collision system.
+     **/
+    inline CollisionSystem &getCollisionSystem() {
+        return _collisionSystem;
+    }
+
+    /**
+     * Returns the movement system.
+     **/
+    inline MovementSystem &getMovementSystem() {
+        return _movementSystem;
+    }
+
+    /**
+     * Returns the render system.
+     **/
+    inline RenderSystem &getRenderSystem() {
+        return _renderSystem;
+    }
+};
+
+/**
+ * Acessor for the only engine instance of this game.
+ * The same as Engine::getInstance(), only more beautiful to write.
+ **/
+inline Engine &getEngine() {
+    return Engine::getInstance();
+}
+
+#endif // !ENGINE_HPP

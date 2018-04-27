@@ -32,5 +32,5 @@
 *.app
 
 #Build and Binary Directories
-build/*
-bin/*
+build/
+bin/

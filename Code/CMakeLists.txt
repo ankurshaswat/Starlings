@@ -65,3 +65,12 @@ add_executable(${APP_NAME} ${APP_SOURCES})
 target_link_libraries(${APP_NAME}
 	${ALL_LIBS}
 )
+
+#Copying Shaders into binary folder
+file(GLOB MY_SHADERS
+  "${PROJECT_SOURCE_DIR}/shaders/*"
+)
+message(STATUS "Shaders " ${MY_SHADERS})
+message(STATUS "Binary Directory " ${CMAKE_BINARY_DIR})
+file(COPY ${MY_SHADERS} DESTINATION ${CMAKE_BINARY_DIR})
+#configure_file(${PROJECT_SOURCE_DIR}/* $(CMAKE_BINARY_DIR) COPYONLY)

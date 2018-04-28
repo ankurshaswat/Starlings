@@ -34,7 +34,8 @@
                 "/usr/local/include",
                 "/usr/include/x86_64-linux-gnu",
                 "/usr/include",
-                "${workspaceFolder}/Code/include"
+                "${workspaceFolder}/Code/include",
+                "${workspaceFolder}/boids_examples/flocking/flocking/include"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",

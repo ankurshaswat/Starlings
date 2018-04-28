@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 // Include GLEW
@@ -27,10 +28,22 @@ using namespace glm;
 
 #define PI 3.14f
 
+
+GLuint programID;
+GLuint MatrixID;
+GLuint ViewMatrixID;
+GLuint ModelMatrixID;
+
+glm::mat4 ViewMatrix,ProjectionMatrix,MVP,ModelMatrix,ScalingMatrix,TranslationMatrix,RotationMatrix;
+
+void renderBoid(vec3 pos);
+
+void renderFlock(std::vector<vec3> v);
+
 int main( void )
 {
 
-	double x_rot=0,y_rot=0,z_rot=0;
+								double x_rot=0,y_rot=0,z_rot=0;
 								// Initialise GLFW
 								if( !glfwInit() )
 								{
@@ -80,12 +93,12 @@ int main( void )
 								glBindVertexArray(VertexArrayID);
 
 								// Create and compile our GLSL program from the shaders
-								GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader" );
+								programID = LoadShaders( "TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader" );
 
 								// Get a handle for our "MVP" uniform
-								GLuint MatrixID = glGetUniformLocation(programID, "MVP");
-								GLuint ViewMatrixID = glGetUniformLocation(programID, "V");
-								GLuint ModelMatrixID = glGetUniformLocation(programID, "M");
+								MatrixID = glGetUniformLocation(programID, "MVP");
+								ViewMatrixID = glGetUniformLocation(programID, "V");
+								ModelMatrixID = glGetUniformLocation(programID, "M");
 
 								// Projection matrix : 45� Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 								glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
@@ -241,22 +254,22 @@ int main( void )
 																// glfwSetCursorPos(window, 1024/2, 768/2);
 																gOrientation1.y += mouseSpeed * float(prevxpos - xpos );
 																y_rot += mouseSpeed * float( xpos - prevxpos);
-																
+
 																// gOrientation1.y += mouseSpeed * float(prevxpos - xpos );
 																gOrientation1.x   += mouseSpeed * float( prevypos - ypos );
 																x_rot   += mouseSpeed * float(  ypos -prevypos );
 																double sinx_rot= sin(x_rot * PI/180 ),cosx_rot= cos(x_rot * PI/180 );
-    double siny_rot= sin(y_rot * PI/180 ),cosy_rot= cos(y_rot * PI/180 );
-    double sinz_rot= sin(z_rot * PI/180 ),cosz_rot= cos(z_rot * PI/180 );
+																double siny_rot= sin(y_rot * PI/180 ),cosy_rot= cos(y_rot * PI/180 );
+																double sinz_rot= sin(z_rot * PI/180 ),cosz_rot= cos(z_rot * PI/180 );
 
-double Xoff=0,Yoff=0,Zoff=0;
+																double Xoff=0,Yoff=0,Zoff=0;
 
-    mat4 transformationMat={{cosy_rot * cosz_rot, cosx_rot * sinz_rot +sinx_rot*siny_rot*cosz_rot,sinx_rot*sinz_rot-cosx_rot*siny_rot*cosz_rot,Xoff},
-                                    {-1*cosy_rot*sinz_rot,cosx_rot*cosz_rot-sinx_rot*siny_rot*sinz_rot,sinx_rot*cosz_rot+cosx_rot*siny_rot*sinz_rot,Yoff},
-                                    {siny_rot,-1*sinx_rot*cosy_rot,cosx_rot*cosy_rot,Zoff},
-                                    {0,0,0,1}};
-	vec4 res = transformationMat * vec4(4.0f,3.0f,-3.0f,1.0f);
-	vec3 rotated(res);
+																mat4 transformationMat={{cosy_rot * cosz_rot, cosx_rot * sinz_rot +sinx_rot*siny_rot*cosz_rot,sinx_rot*sinz_rot-cosx_rot*siny_rot*cosz_rot,Xoff},
+																																								{-1*cosy_rot*sinz_rot,cosx_rot*cosz_rot-sinx_rot*siny_rot*sinz_rot,sinx_rot*cosz_rot+cosx_rot*siny_rot*sinz_rot,Yoff},
+																																								{siny_rot,-1*sinx_rot*cosy_rot,cosx_rot*cosy_rot,Zoff},
+																																								{0,0,0,1}};
+																vec4 res = transformationMat * vec4(4.0f,3.0f,-3.0f,1.0f);
+																vec3 rotated(res);
 // glm::vec4 result = m * v;
 
 																// gOrientation1.x   -= mouseSpeed * float( prevypos - ypos );
@@ -269,14 +282,14 @@ double Xoff=0,Yoff=0,Zoff=0;
 																// float camY = sin(gOrientation1.x) * radius;
 																float camZ = cos(gOrientation1.x) * radius;
 																// float camZ = cos(glfwGetTime()) * radius;
-																
-																glm::mat4 ViewMatrix;
+
+																ViewMatrix;
 																ViewMatrix = glm::lookAt(rotated, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-																
+
 																// ViewMatrix = glm::lookAt(glm::vec3(camX, 4.0f, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 																// ViewMatrix = glm::lookAt(glm::vec3(camX, camY, 0.0f), glm::vec3(0.0, 0.0, 0.0), cameraUp);
 																// ViewMatrix = glm::lookAt(glm::vec3(camX, 4.0f, camZ), glm::vec3(0.0, 0.0, 0.0), camerup);
-																
+
 																// cout<<"CamX :- "<<camX<<endl;
 																// cout<<" CamY :- "<<camY<<endl;
 																cout<< "Position = "<<glm::to_string(rotated)<<endl;
@@ -291,24 +304,22 @@ double Xoff=0,Yoff=0,Zoff=0;
 
 																// Use our shader
 																glUseProgram(programID);
-																glm::mat4 ProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+																ProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 																// glm::mat4 ViewMatrix = glm::lookAt(
-																// 								glm::vec3(4,3,-3), // Camera is at (4,3,-3), in World Space
-																// 								glm::vec3(0,0,0), // and looks at the origin
-																// 								glm::vec3(0,1,0) // Head is up (set to 0,-1,0 to look upside-down)
-																// 								);
+																//         glm::vec3(4,3,-3), // Camera is at (4,3,-3), in World Space
+																//         glm::vec3(0,0,0), // and looks at the origin
+																//         glm::vec3(0,1,0) // Head is up (set to 0,-1,0 to look upside-down)
+																//         );
 																// float verticalAngle = 1.57f;
 																// float horizontalAngle = 0.0f;
 
 																// gOrientation1.y += 3.14159f/2.0f * deltaTime;
 
-																glm::mat4 RotationMatrix = mat4(1.0f);
+																RotationMatrix = mat4(1.0f);
 																// glm::mat4 RotationMatrix = eulerAngleYXZ(gOrientation1.y, gOrientation1.x, gOrientation1.z);
-																glm::mat4 TranslationMatrix = translate(mat4(), gPosition1); // A bit to the left
-																glm::mat4 ScalingMatrix = scale(mat4(), vec3(1.0f, 1.0f, 1.0f));
-																glm::mat4 ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
-
-																glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+																TranslationMatrix = translate(mat4(), gPosition1); // A bit to the left
+																ScalingMatrix = scale(mat4(), vec3(1.0f, 1.0f, 1.0f));
+																ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
 
 
 
@@ -329,7 +340,7 @@ double Xoff=0,Yoff=0,Zoff=0;
 																// glm::mat4 ProjectionMatrix = getProjectionMatrix();
 																// glm::mat4 ViewMatrix = getViewMatrix();
 																// glm::mat4 ModelMatrix = glm::mat4(1.0);
-																// glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+																MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
 																// Send our transformation to the currently bound shader,
 																// in the "MVP" uniform
@@ -362,28 +373,37 @@ double Xoff=0,Yoff=0,Zoff=0;
 																// Draw the triangle !
 																glDrawArrays(GL_LINES, 0, 3*2); // 12*3 indices starting at 0 -> 12 triangles
 
-																theta += omega * deltaTime;
+																// theta += omega * deltaTime;
 																// std::cout << deltaTime << '\n';
 																// if(theta > 4.0f){
 																// theta -= 3.14f;
 																// }
-																pos.x = (0.5f)*cos(theta);
-																pos.y = (0.5f)*sin(theta);
+																// pos.x = (0.5f)*cos(theta);
+																// pos.y = (0.5f)*sin(theta);
 
 																// pos = pos.y + sin()
-																RotationMatrix = eulerAngleYXZ(gOrientation1.y, gOrientation1.x, gOrientation1.z);;
+																// RotationMatrix = mat4(1.0f);
+																// RotationMatrix = eulerAngleYXZ(gOrientation1.y, gOrientation1.x, gOrientation1.z);;
 																// TranslationMatrix = translate(mat4(), vec3(); // A bit to the right
-																TranslationMatrix = translate(mat4(), pos); // A bit to the right
-																ScalingMatrix = scale(mat4(), vec3(0.01f, 0.01f,0.01f));
-																ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
+																// TranslationMatrix = translate(mat4(), pos); // A bit to the right
+																// ScalingMatrix = scale(mat4(), vec3(0.01f, 0.01f,0.01f));
+																// ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
 
-																MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-																glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-																glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-																glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
+																// MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+																// glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+																// glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
+																// glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
 
 
-																glDrawArrays(GL_TRIANGLES, 6, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+																// glDrawArrays(GL_TRIANGLES, 6, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+																std::vector<vec3> v;
+																v.push_back(vec3(0.3f));
+																v.push_back(vec3(-0.3f));
+
+																renderFlock(v);
+																// renderBoid(vec3(0.3f));
+
+																// renderBoid(vec3(-0.3f));
 
 																// glRasterPos3d(1,0,0);
 																// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'X');
@@ -460,3 +480,26 @@ void displayFunc(){
 //     lastx = x;
 //     lasty = y;
 // }
+
+void renderFlock(std::vector<vec3> v){
+
+
+
+								for (size_t i = 0; i < v.size(); i++) {
+																renderBoid(v[i]);
+								}
+}
+
+void renderBoid(vec3 pos){
+								TranslationMatrix = translate(mat4(), pos); // A bit to the right
+								ScalingMatrix = scale(mat4(), vec3(0.01f, 0.01f,0.01f));
+								ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
+
+								MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+								glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+								glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
+								glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
+
+								glDrawArrays(GL_TRIANGLES, 6, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+
+}

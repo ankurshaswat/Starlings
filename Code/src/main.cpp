@@ -17,15 +17,20 @@ GLFWwindow* window;
 #include <glm/gtx/euler_angles.hpp>
 using namespace glm;
 
-#include<GL/glut.h>
+#include <GL/glut.h>
 
 #include <shader.hpp>
 #include <texture.hpp>
 #include <math.h>
+#include "glm/gtx/string_cast.hpp"
 // #include <common/controls.hpp>
+
+#define PI 3.14f
 
 int main( void )
 {
+
+	double x_rot=0,y_rot=0,z_rot=0;
 								// Initialise GLFW
 								if( !glfwInit() )
 								{
@@ -107,39 +112,39 @@ int main( void )
 																-1.0f,-1.0f,-1.0f,
 																-1.0f,-1.0f, 1.0f,
 																-1.0f, 1.0f, 1.0f,
-																 1.0f, 1.0f,-1.0f,
+																1.0f, 1.0f,-1.0f,
 																-1.0f,-1.0f,-1.0f,
 																-1.0f, 1.0f,-1.0f,
-																 1.0f,-1.0f, 1.0f,
+																1.0f,-1.0f, 1.0f,
 																-1.0f,-1.0f,-1.0f,
-																 1.0f,-1.0f,-1.0f,
-																 1.0f, 1.0f,-1.0f,
-																 1.0f,-1.0f,-1.0f,
+																1.0f,-1.0f,-1.0f,
+																1.0f, 1.0f,-1.0f,
+																1.0f,-1.0f,-1.0f,
 																-1.0f,-1.0f,-1.0f,
 																-1.0f,-1.0f,-1.0f,
 																-1.0f, 1.0f, 1.0f,
 																-1.0f, 1.0f,-1.0f,
-																 1.0f,-1.0f, 1.0f,
+																1.0f,-1.0f, 1.0f,
 																-1.0f,-1.0f, 1.0f,
 																-1.0f,-1.0f,-1.0f,
 																-1.0f, 1.0f, 1.0f,
 																-1.0f,-1.0f, 1.0f,
-																 1.0f,-1.0f, 1.0f,
-																 1.0f, 1.0f, 1.0f,
-																 1.0f,-1.0f,-1.0f,
-																 1.0f, 1.0f,-1.0f,
-																 1.0f,-1.0f,-1.0f,
-																 1.0f, 1.0f, 1.0f,
-																 1.0f,-1.0f, 1.0f,
-																 1.0f, 1.0f, 1.0f,
-																 1.0f, 1.0f,-1.0f,
+																1.0f,-1.0f, 1.0f,
+																1.0f, 1.0f, 1.0f,
+																1.0f,-1.0f,-1.0f,
+																1.0f, 1.0f,-1.0f,
+																1.0f,-1.0f,-1.0f,
+																1.0f, 1.0f, 1.0f,
+																1.0f,-1.0f, 1.0f,
+																1.0f, 1.0f, 1.0f,
+																1.0f, 1.0f,-1.0f,
 																-1.0f, 1.0f,-1.0f,
-																 1.0f, 1.0f, 1.0f,
+																1.0f, 1.0f, 1.0f,
 																-1.0f, 1.0f,-1.0f,
 																-1.0f, 1.0f, 1.0f,
-																 1.0f, 1.0f, 1.0f,
+																1.0f, 1.0f, 1.0f,
 																-1.0f, 1.0f, 1.0f,
-																 1.0f,-1.0f, 1.0f//cube
+																1.0f,-1.0f, 1.0f //cube
 
 								};
 
@@ -210,6 +215,72 @@ int main( void )
 								// double omega = 0.0005f;
 								vec3 pos(0.3f,0.3f,0.3f);
 								do {
+
+																glm::vec3 cameraPos = glm::vec3(4.0f, 3.0f, -3.0f);
+
+																glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+																glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
+
+																glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+																glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+																glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
+
+																glm::mat4 view;
+																view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f),
+																																			glm::vec3(0.0f, 0.0f, 0.0f),
+																																			glm::vec3(0.0f, 1.0f, 0.0f));
+
+																float radius = 5.0f;
+
+																float mouseSpeed = 1.0f;
+																//   glm::vec3 position = glm::vec3( 4, 3, -3 );
+																//   static double lastTime = glfwGetTime();
+																//   double currentTime = glfwGetTime();
+																//   float deltaTime = float(currentTime - lastTime);
+																glfwGetCursorPos(window, &xpos, &ypos);
+																// glfwSetCursorPos(window, 1024/2, 768/2);
+																gOrientation1.y += mouseSpeed * float(prevxpos - xpos );
+																y_rot += mouseSpeed * float( xpos - prevxpos);
+																
+																// gOrientation1.y += mouseSpeed * float(prevxpos - xpos );
+																gOrientation1.x   += mouseSpeed * float( prevypos - ypos );
+																x_rot   += mouseSpeed * float(  ypos -prevypos );
+																double sinx_rot= sin(x_rot * PI/180 ),cosx_rot= cos(x_rot * PI/180 );
+    double siny_rot= sin(y_rot * PI/180 ),cosy_rot= cos(y_rot * PI/180 );
+    double sinz_rot= sin(z_rot * PI/180 ),cosz_rot= cos(z_rot * PI/180 );
+
+double Xoff=0,Yoff=0,Zoff=0;
+
+    mat4 transformationMat={{cosy_rot * cosz_rot, cosx_rot * sinz_rot +sinx_rot*siny_rot*cosz_rot,sinx_rot*sinz_rot-cosx_rot*siny_rot*cosz_rot,Xoff},
+                                    {-1*cosy_rot*sinz_rot,cosx_rot*cosz_rot-sinx_rot*siny_rot*sinz_rot,sinx_rot*cosz_rot+cosx_rot*siny_rot*sinz_rot,Yoff},
+                                    {siny_rot,-1*sinx_rot*cosy_rot,cosx_rot*cosy_rot,Zoff},
+                                    {0,0,0,1}};
+	vec4 res = transformationMat * vec4(4.0f,3.0f,-3.0f,1.0f);
+	vec3 rotated(res);
+// glm::vec4 result = m * v;
+
+																// gOrientation1.x   -= mouseSpeed * float( prevypos - ypos );
+																prevxpos=xpos;
+																prevypos=ypos;
+
+
+																// float camX = sin(glfwGetTime()) * radius;
+																float camX = sin(gOrientation1.x) * radius;
+																// float camY = sin(gOrientation1.x) * radius;
+																float camZ = cos(gOrientation1.x) * radius;
+																// float camZ = cos(glfwGetTime()) * radius;
+																
+																glm::mat4 ViewMatrix;
+																ViewMatrix = glm::lookAt(rotated, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+																
+																// ViewMatrix = glm::lookAt(glm::vec3(camX, 4.0f, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+																// ViewMatrix = glm::lookAt(glm::vec3(camX, camY, 0.0f), glm::vec3(0.0, 0.0, 0.0), cameraUp);
+																// ViewMatrix = glm::lookAt(glm::vec3(camX, 4.0f, camZ), glm::vec3(0.0, 0.0, 0.0), camerup);
+																
+																// cout<<"CamX :- "<<camX<<endl;
+																// cout<<" CamY :- "<<camY<<endl;
+																cout<< "Position = "<<glm::to_string(rotated)<<endl;
+
 																i++;
 																double currentTime = glfwGetTime();
 
@@ -221,26 +292,14 @@ int main( void )
 																// Use our shader
 																glUseProgram(programID);
 																glm::mat4 ProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-																glm::mat4 ViewMatrix = glm::lookAt(
-																								glm::vec3(4,3,-3), // Camera is at (4,3,-3), in World Space
-																								glm::vec3(0,0,0), // and looks at the origin
-																								glm::vec3(0,1,0) // Head is up (set to 0,-1,0 to look upside-down)
-																								);
+																// glm::mat4 ViewMatrix = glm::lookAt(
+																// 								glm::vec3(4,3,-3), // Camera is at (4,3,-3), in World Space
+																// 								glm::vec3(0,0,0), // and looks at the origin
+																// 								glm::vec3(0,1,0) // Head is up (set to 0,-1,0 to look upside-down)
+																// 								);
 																// float verticalAngle = 1.57f;
 																// float horizontalAngle = 0.0f;
-																float mouseSpeed = 0.01f;
-//   glm::vec3 position = glm::vec3( 4, 3, -3 );
-//   static double lastTime = glfwGetTime();
-//   double currentTime = glfwGetTime();
-//   float deltaTime = float(currentTime - lastTime);
-																glfwGetCursorPos(window, &xpos, &ypos);
-																// glfwSetCursorPos(window, 1024/2, 768/2);
-																gOrientation1.y += mouseSpeed * float(prevxpos - xpos );
-																// gOrientation1.y += mouseSpeed * float(prevxpos - xpos );
-																gOrientation1.x   += mouseSpeed * float( prevypos - ypos );
-																// gOrientation1.x   -= mouseSpeed * float( prevypos - ypos );
-																prevxpos=xpos;
-																prevypos=ypos;
+
 																// gOrientation1.y += 3.14159f/2.0f * deltaTime;
 
 																glm::mat4 RotationMatrix = mat4(1.0f);
@@ -257,8 +316,8 @@ int main( void )
 //
 //   // Compute the MVP matrix from keyboard and mouse input
 
-//   // glm::vec3 myRotationAxis( 1.0f, 0.0f, 0.0f);
-//   // glm::rotate( horizontalAngle, myRotationAxis );
+//   // glm::vec3 my_rotationAxis( 1.0f, 0.0f, 0.0f);
+//   // glm::rotate( horizontalAngle, my_rotationAxis );
 //
 //   glm::mat4 myTranslationMatrix = glm::mat4(1.0f);
 //   if (i%1000==0)
@@ -306,7 +365,7 @@ int main( void )
 																theta += omega * deltaTime;
 																// std::cout << deltaTime << '\n';
 																// if(theta > 4.0f){
-																	// theta -= 3.14f;
+																// theta -= 3.14f;
 																// }
 																pos.x = (0.5f)*cos(theta);
 																pos.y = (0.5f)*sin(theta);
@@ -328,10 +387,10 @@ int main( void )
 
 																// glRasterPos3d(1,0,0);
 																// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'X');
-															    // glRasterPos3d(0,1,0);
-																	// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'Y');
-															    // glRasterPos3d(0,0,1);
-																	// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'Z');
+																// glRasterPos3d(0,1,0);
+																// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'Y');
+																// glRasterPos3d(0,0,1);
+																// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'Z');
 
 																glDisableVertexAttribArray(0);
 																glDisableVertexAttribArray(1);

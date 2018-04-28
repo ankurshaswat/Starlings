@@ -1,6 +1,8 @@
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+using namespace std;
 
 // Include GLEW
 #include <GL/glew.h>
@@ -15,8 +17,11 @@ GLFWwindow* window;
 #include <glm/gtx/euler_angles.hpp>
 using namespace glm;
 
+#include<GL/glut.h>
+
 #include <shader.hpp>
 #include <texture.hpp>
+#include <math.h>
 // #include <common/controls.hpp>
 
 int main( void )
@@ -74,6 +79,8 @@ int main( void )
 
 								// Get a handle for our "MVP" uniform
 								GLuint MatrixID = glGetUniformLocation(programID, "MVP");
+								GLuint ViewMatrixID = glGetUniformLocation(programID, "V");
+								GLuint ModelMatrixID = glGetUniformLocation(programID, "M");
 
 								// Projection matrix : 45� Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 								glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
@@ -96,7 +103,44 @@ int main( void )
 																0.0f,1.0f,0.0f,
 																0.0f,-1.0f,0.0f,
 																0.0f,0.0f,1.0f,
-																0.0f,0.0f,-1.0f
+																0.0f,0.0f,-1.0f,//aaxi
+																-1.0f,-1.0f,-1.0f,
+																-1.0f,-1.0f, 1.0f,
+																-1.0f, 1.0f, 1.0f,
+																 1.0f, 1.0f,-1.0f,
+																-1.0f,-1.0f,-1.0f,
+																-1.0f, 1.0f,-1.0f,
+																 1.0f,-1.0f, 1.0f,
+																-1.0f,-1.0f,-1.0f,
+																 1.0f,-1.0f,-1.0f,
+																 1.0f, 1.0f,-1.0f,
+																 1.0f,-1.0f,-1.0f,
+																-1.0f,-1.0f,-1.0f,
+																-1.0f,-1.0f,-1.0f,
+																-1.0f, 1.0f, 1.0f,
+																-1.0f, 1.0f,-1.0f,
+																 1.0f,-1.0f, 1.0f,
+																-1.0f,-1.0f, 1.0f,
+																-1.0f,-1.0f,-1.0f,
+																-1.0f, 1.0f, 1.0f,
+																-1.0f,-1.0f, 1.0f,
+																 1.0f,-1.0f, 1.0f,
+																 1.0f, 1.0f, 1.0f,
+																 1.0f,-1.0f,-1.0f,
+																 1.0f, 1.0f,-1.0f,
+																 1.0f,-1.0f,-1.0f,
+																 1.0f, 1.0f, 1.0f,
+																 1.0f,-1.0f, 1.0f,
+																 1.0f, 1.0f, 1.0f,
+																 1.0f, 1.0f,-1.0f,
+																-1.0f, 1.0f,-1.0f,
+																 1.0f, 1.0f, 1.0f,
+																-1.0f, 1.0f,-1.0f,
+																-1.0f, 1.0f, 1.0f,
+																 1.0f, 1.0f, 1.0f,
+																-1.0f, 1.0f, 1.0f,
+																 1.0f,-1.0f, 1.0f//cube
+
 								};
 
 								// One color for each vertex. They were generated randomly.
@@ -106,7 +150,44 @@ int main( void )
 																0.327f,  0.483f,  0.844f,
 																0.822f,  0.569f,  0.201f,
 																0.435f,  0.602f,  0.223f,
-																0.310f,  0.747f,  0.185f
+																0.310f,  0.747f,  0.185f,//axi
+
+																0.583f,  0.771f,  0.014f,
+																0.609f,  0.115f,  0.436f,
+																0.327f,  0.483f,  0.844f,
+																0.822f,  0.569f,  0.201f,
+																0.435f,  0.602f,  0.223f,
+																0.310f,  0.747f,  0.185f,
+																0.597f,  0.770f,  0.761f,
+																0.559f,  0.436f,  0.730f,
+																0.359f,  0.583f,  0.152f,
+																0.483f,  0.596f,  0.789f,
+																0.559f,  0.861f,  0.639f,
+																0.195f,  0.548f,  0.859f,
+																0.014f,  0.184f,  0.576f,
+																0.771f,  0.328f,  0.970f,
+																0.406f,  0.615f,  0.116f,
+																0.676f,  0.977f,  0.133f,
+																0.971f,  0.572f,  0.833f,
+																0.140f,  0.616f,  0.489f,
+																0.997f,  0.513f,  0.064f,
+																0.945f,  0.719f,  0.592f,
+																0.543f,  0.021f,  0.978f,
+																0.279f,  0.317f,  0.505f,
+																0.167f,  0.620f,  0.077f,
+																0.347f,  0.857f,  0.137f,
+																0.055f,  0.953f,  0.042f,
+																0.714f,  0.505f,  0.345f,
+																0.783f,  0.290f,  0.734f,
+																0.722f,  0.645f,  0.174f,
+																0.302f,  0.455f,  0.848f,
+																0.225f,  0.587f,  0.040f,
+																0.517f,  0.713f,  0.338f,
+																0.053f,  0.959f,  0.120f,
+																0.393f,  0.621f,  0.362f,
+																0.673f,  0.211f,  0.457f,
+																0.820f,  0.883f,  0.371f,
+																0.982f,  0.099f,  0.879f//cube
 								};
 
 								GLuint vertexbuffer;
@@ -120,16 +201,20 @@ int main( void )
 								glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 								vec3 gPosition1(0.0f, 0.0f, 0.0f);
 								vec3 gOrientation1;
-								double xpos, ypos;
+								double xpos, ypos,prevxpos,prevypos;
 								double lastTime = glfwGetTime();
 								double lastFrameTime = lastTime;
 								int i=0;
+								double theta = 0.0f;
+								double omega = 2.0f * 3.14f / 3.0f;
+								// double omega = 0.0005f;
+								vec3 pos(0.3f,0.3f,0.3f);
 								do {
 																i++;
 																double currentTime = glfwGetTime();
 
 																float deltaTime = (float)(currentTime - lastFrameTime);
-
+																lastFrameTime=currentTime;
 																// Clear the screen
 																glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -143,18 +228,23 @@ int main( void )
 																								);
 																// float verticalAngle = 1.57f;
 																// float horizontalAngle = 0.0f;
-																float mouseSpeed = 0.005f;
+																float mouseSpeed = 0.01f;
 //   glm::vec3 position = glm::vec3( 4, 3, -3 );
 //   static double lastTime = glfwGetTime();
 //   double currentTime = glfwGetTime();
 //   float deltaTime = float(currentTime - lastTime);
 																glfwGetCursorPos(window, &xpos, &ypos);
-																glfwSetCursorPos(window, 1024/2, 768/2);
-																gOrientation1.y += mouseSpeed * float(1024/2 - xpos );
-																gOrientation1.x   -= mouseSpeed * float( 768/2 - ypos );
+																// glfwSetCursorPos(window, 1024/2, 768/2);
+																gOrientation1.y += mouseSpeed * float(prevxpos - xpos );
+																// gOrientation1.y += mouseSpeed * float(prevxpos - xpos );
+																gOrientation1.x   += mouseSpeed * float( prevypos - ypos );
+																// gOrientation1.x   -= mouseSpeed * float( prevypos - ypos );
+																prevxpos=xpos;
+																prevypos=ypos;
 																// gOrientation1.y += 3.14159f/2.0f * deltaTime;
 
-																glm::mat4 RotationMatrix = eulerAngleYXZ(gOrientation1.y, gOrientation1.x, gOrientation1.z);
+																glm::mat4 RotationMatrix = mat4(1.0f);
+																// glm::mat4 RotationMatrix = eulerAngleYXZ(gOrientation1.y, gOrientation1.x, gOrientation1.z);
 																glm::mat4 TranslationMatrix = translate(mat4(), gPosition1); // A bit to the left
 																glm::mat4 ScalingMatrix = scale(mat4(), vec3(1.0f, 1.0f, 1.0f));
 																glm::mat4 ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
@@ -213,6 +303,36 @@ int main( void )
 																// Draw the triangle !
 																glDrawArrays(GL_LINES, 0, 3*2); // 12*3 indices starting at 0 -> 12 triangles
 
+																theta += omega * deltaTime;
+																// std::cout << deltaTime << '\n';
+																// if(theta > 4.0f){
+																	// theta -= 3.14f;
+																// }
+																pos.x = (0.5f)*cos(theta);
+																pos.y = (0.5f)*sin(theta);
+
+																// pos = pos.y + sin()
+																RotationMatrix = eulerAngleYXZ(gOrientation1.y, gOrientation1.x, gOrientation1.z);;
+																// TranslationMatrix = translate(mat4(), vec3(); // A bit to the right
+																TranslationMatrix = translate(mat4(), pos); // A bit to the right
+																ScalingMatrix = scale(mat4(), vec3(0.01f, 0.01f,0.01f));
+																ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
+
+																MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+																glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+																glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
+																glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
+
+
+																glDrawArrays(GL_TRIANGLES, 6, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+
+																// glRasterPos3d(1,0,0);
+																// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'X');
+															    // glRasterPos3d(0,1,0);
+																	// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'Y');
+															    // glRasterPos3d(0,0,1);
+																	// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'Z');
+
 																glDisableVertexAttribArray(0);
 																glDisableVertexAttribArray(1);
 
@@ -236,6 +356,18 @@ int main( void )
 								return 0;
 }
 
+
+void mouseCallBack(){
+
+}
+
+void motionCallBack(){
+
+}
+
+void displayFunc(){
+
+}
 
 //======================================================
 // MOUSE CALLBACK ROUTINE

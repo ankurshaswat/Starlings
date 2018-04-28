@@ -4,6 +4,7 @@ SET(APP_NAME Starlings)
 project(${APP_NAME})
 
 find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
 
 #Cmake settings
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -38,11 +39,13 @@ include_directories(
 	external/glfw-3.1.2/include/
 	external/glm-0.9.7.1/
 	external/glew-1.13.0/include/
+  ${GLUT_INCLUDE_DIRS}
 	.
 )
 
 set(ALL_LIBS
 	${OPENGL_LIBRARY}
+	${GLUT_LIBRARY}
 	glfw
 	GLEW_1130
 )
@@ -66,11 +69,9 @@ target_link_libraries(${APP_NAME}
 	${ALL_LIBS}
 )
 
-#Copying Shaders into binary folder
-file(GLOB MY_SHADERS
-  "${PROJECT_SOURCE_DIR}/shaders/*"
+#Copying Shaders and Objects into binary folder
+file(GLOB MY_FILES_TO_BE_COPIED
+  "${PROJECT_SOURCE_DIR}/shaders_objects/*"
 )
-message(STATUS "Shaders " ${MY_SHADERS})
-message(STATUS "Binary Directory " ${CMAKE_BINARY_DIR})
-file(COPY ${MY_SHADERS} DESTINATION ${CMAKE_BINARY_DIR})
-#configure_file(${PROJECT_SOURCE_DIR}/* $(CMAKE_BINARY_DIR) COPYONLY)
+
+file(COPY ${MY_FILES_TO_BE_COPIED} DESTINATION ${CMAKE_BINARY_DIR})

@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
+#include<iostream>
 
 Flock::Flock()
 {
@@ -30,11 +31,18 @@ void Flock::update(double dt)
 				neighbours.push_back((*second));
 			}
 		}
+		glm::vec3 temp= (*iter)->getPosition();
+		std::cout<<"BEFORE EVERYTHING-"<<temp.x<<" "<<temp.y<<" "<<temp.z<<std::endl;
 		vec3 velocity = (*iter)->separate(neighbours)*(float)SEPARATION_WEIGHT; 
 		velocity += (*iter)->aligment(neighbours)*(float)ALIGMENT_WEIGHT;
 		velocity += (*iter)->cohesion(neighbours)*(float)COHESION_WEIGHT;
 		
 		velocity *= MAX_SPEED;
+		temp= (*iter)->getPosition();
+		std::cout<<"BEFORE-"<<temp.x<<" "<<temp.y<<" "<<temp.z<<std::endl;
 		(*iter)->update(dt, velocity);
+		temp= (*iter)->getPosition();
+		std::cout<<"AFTER-"<<temp.x<<" "<<temp.y<<" "<<temp.z<<std::endl;
 	}
+	std::cout<<std::endl;
 }

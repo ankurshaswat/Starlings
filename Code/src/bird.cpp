@@ -4,6 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
+#include<iostream>
+
 double Bird::getRand(){
     return ((double) rand() / (RAND_MAX));
 }
@@ -30,31 +32,31 @@ void Bird::update(double dt, glm::vec3 velocity)
 	}
 	addVelocity();
 	glm::vec3 pos = getPosition();
-	if(pos.y > 5.0f)
-	{
-		pos.y = -5.0f;
-	}
-	else if(pos.y < -5.0f)
-	{
-		pos.y = 5.0f;
-	}
-	if(pos.x > 5.0f)
-	{
-		pos.x = -5.0f;
-	}
-	else if(pos.x < -5.0f)
-	{
-		pos.x = 5.0f;
-	}
+	// if(pos.y > 5.0f)
+	// {
+	// 	pos.y = -5.0f;
+	// }
+	// else if(pos.y < -5.0f)
+	// {
+	// 	pos.y = 5.0f;
+	// }
+	// if(pos.x > 5.0f)
+	// {
+	// 	pos.x = -5.0f;
+	// }
+	// else if(pos.x < -5.0f)
+	// {
+	// 	pos.x = 5.0f;
+	// }
 
-    if(pos.z > 5.0f)
-	{
-		pos.z = -5.0f;
-	}
-	else if(pos.z < -5.0f)
-	{
-		pos.z = 5.0f;
-	}
+    // if(pos.z > 5.0f)
+	// {
+	// 	pos.z = -5.0f;
+	// }
+	// else if(pos.z < -5.0f)
+	// {
+	// 	pos.z = 5.0f;
+	// }
 
 	mPosition.x = pos.x;
 	mPosition.y = pos.y;
@@ -80,7 +82,9 @@ void Bird::addVelocity()
 	{
 		
         //add velocity to position
+		// std::cout<<"BEFORE-"<<mPosition.x<<" "<<mPosition.y<<" "<<mPosition.z<<std::endl;
         mPosition= glm::vec3(mPosition+mVelocity);
+		// std::cout<<"AFTER-"<<mPosition.x<<" "<<mPosition.y<<" "<<mPosition.z<<std::endl;
 	}
 
 

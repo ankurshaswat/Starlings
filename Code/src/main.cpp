@@ -24,6 +24,7 @@ using namespace glm;
 #include <texture.hpp>
 #include<flock.h>
 #include<bird.h>
+#include<simulTimer.h>
 #include <objloader.hpp>
 #include <math.h>
 #include "glm/gtx/string_cast.hpp"
@@ -417,10 +418,10 @@ int main( void )
 								Flock flock= Flock();
 								cout<<"Initail pos-"<<endl;
 								for(int i=0;i<FLOCK_SIZE;i++){
-									Bird bird= Bird();
-									flock.add(&bird);
-									glm::vec3 temp=bird.getPosition();
-									cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
+									// Bird bird= Bird();
+									flock.add(new Bird());
+									// glm::vec3 temp=bird.getPosition();
+									// cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
 								}
 								do {
 
@@ -481,13 +482,6 @@ int main( void )
 																ViewMatrix;
 																ViewMatrix = glm::lookAt(rotated, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 
-																// ViewMatrix = glm::lookAt(glm::vec3(camX, 4.0f, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-																// ViewMatrix = glm::lookAt(glm::vec3(camX, camY, 0.0f), glm::vec3(0.0, 0.0, 0.0), cameraUp);
-																// ViewMatrix = glm::lookAt(glm::vec3(camX, 4.0f, camZ), glm::vec3(0.0, 0.0, 0.0), camerup);
-
-																// cout<<"CamX :- "<<camX<<endl;
-																// cout<<" CamY :- "<<camY<<endl;
-																// cout<< "Position = "<<glm::to_string(rotated)<<endl;
 
 																i++;
 																double currentTime = glfwGetTime();
@@ -500,16 +494,7 @@ int main( void )
 																// Use our shader
 																glUseProgram(programID);
 																ProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-																// glm::mat4 ViewMatrix = glm::lookAt(
-																//         glm::vec3(4,3,-3), // Camera is at (4,3,-3), in World Space
-																//         glm::vec3(0,0,0), // and looks at the origin
-																//         glm::vec3(0,1,0) // Head is up (set to 0,-1,0 to look upside-down)
-																//         );
-																// float verticalAngle = 1.57f;
-																// float horizontalAngle = 0.0f;
-
-																// gOrientation1.y += 3.14159f/2.0f * deltaTime;
-
+															
 																RotationMatrix = mat4(1.0f);
 																// glm::mat4 RotationMatrix = eulerAngleYXZ(gOrientation1.y, gOrientation1.x, gOrientation1.z);
 																TranslationMatrix = translate(mat4(), gPosition1); // A bit to the left
@@ -517,24 +502,6 @@ int main( void )
 																ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
 
 
-
-
-//
-//   // Compute the MVP matrix from keyboard and mouse input
-
-//   // glm::vec3 my_rotationAxis( 1.0f, 0.0f, 0.0f);
-//   // glm::rotate( horizontalAngle, my_rotationAxis );
-//
-//   glm::mat4 myTranslationMatrix = glm::mat4(1.0f);
-//   if (i%1000==0)
-//  {	myTranslationMatrix = glm::rotate(myTranslationMatrix, glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-//   glm::mat4 myModelMatrix = myTranslationMatrix ;
-//   MVP = myModelMatrix * MVP;
-// }
-																// computeMatricesFromInputs();
-																// glm::mat4 ProjectionMatrix = getProjectionMatrix();
-																// glm::mat4 ViewMatrix = getViewMatrix();
-																// glm::mat4 ModelMatrix = glm::mat4(1.0);
 																MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
 																// Send our transformation to the currently bound shader,
@@ -580,29 +547,6 @@ int main( void )
 																// Draw the triangle !
 																glDrawArrays(GL_LINES, 0, 3*2); // 12*3 indices starting at 0 -> 12 triangles
 
-																// theta += omega * deltaTime;
-																// std::cout << deltaTime << '\n';
-																// if(theta > 4.0f){
-																// theta -= 3.14f;
-																// }
-																// pos.x = (0.5f)*cos(theta);
-																// pos.y = (0.5f)*sin(theta);
-
-																// pos = pos.y + sin()
-																// RotationMatrix = mat4(1.0f);
-																// RotationMatrix = eulerAngleYXZ(gOrientation1.y, gOrientation1.x, gOrientation1.z);;
-																// TranslationMatrix = translate(mat4(), vec3(); // A bit to the right
-																// TranslationMatrix = translate(mat4(), pos); // A bit to the right
-																// ScalingMatrix = scale(mat4(), vec3(0.01f, 0.01f,0.01f));
-																// ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
-
-																// MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-																// glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-																// glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-																// glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
-
-
-																// glDrawArrays(GL_TRIANGLES, 6, 12*3); // 12*3 indices starting at 0 -> 12 triangles
 																std::vector<vec3> v;
 																timer.tick();
 																dt = timer.getDeltaTime();
@@ -617,16 +561,6 @@ int main( void )
 																}
 																
 																renderFlock(v);
-																// renderBoid(vec3(0.3f));
-
-																// renderBoid(vec3(-0.3f));
-
-																// glRasterPos3d(1,0,0);
-																// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'X');
-																// glRasterPos3d(0,1,0);
-																// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'Y');
-																// glRasterPos3d(0,0,1);
-																// glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,'Z');
 
 																glDisableVertexAttribArray(0);
 																glDisableVertexAttribArray(1);
@@ -635,6 +569,7 @@ int main( void )
 																// Swap buffers
 																glfwSwapBuffers(window);
 																glfwPollEvents();
+																// cin.ignore();
 
 								} // Check if the ESC key was pressed or the window was closed
 								while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&

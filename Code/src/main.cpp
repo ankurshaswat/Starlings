@@ -410,6 +410,10 @@ int main( void )
 								double omega = 2.0f * 3.14f / 3.0f;
 								// double omega = 0.0005f;
 								vec3 pos(0.3f,0.3f,0.3f);
+								simulTimer timer;
+								double dt;
+								double fps;
+
 								Flock flock= Flock();
 								cout<<"Initail pos-"<<endl;
 								for(int i=0;i<FLOCK_SIZE;i++){
@@ -600,7 +604,11 @@ int main( void )
 
 																// glDrawArrays(GL_TRIANGLES, 6, 12*3); // 12*3 indices starting at 0 -> 12 triangles
 																std::vector<vec3> v;
-																flock.update(0.1);
+																timer.tick();
+																dt = timer.getDeltaTime();
+																fps = timer.getFPS();
+
+																flock.update(dt);
 																// cout<<"FLOCK-"<<endl<<endl;
 																for(auto it: flock.mBirds){
 																	v.push_back((*it).getPosition());

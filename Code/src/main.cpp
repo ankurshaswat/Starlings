@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
+// #include <conio>
 using namespace std;
 
 // Include GLEW
@@ -600,17 +601,15 @@ int main( void )
 
 																// glDrawArrays(GL_TRIANGLES, 6, 12*3); // 12*3 indices starting at 0 -> 12 triangles
 																std::vector<vec3> v;
-																flock.update(0.1);
+																// flock.update(0.1);
 																// cout<<"FLOCK-"<<endl<<endl;
 																for(auto it: flock.mBirds){
 																	v.push_back((*it).getPosition());
 																	glm::vec3 temp=(*it).getPosition();
-																	// cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
+																	cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
 																}
-																
 																renderFlock(v);
 																// renderBoid(vec3(0.3f));
-
 																// renderBoid(vec3(-0.3f));
 
 																// glRasterPos3d(1,0,0);
@@ -627,7 +626,7 @@ int main( void )
 																// Swap buffers
 																glfwSwapBuffers(window);
 																glfwPollEvents();
-
+																cin.ignore();
 								} // Check if the ESC key was pressed or the window was closed
 								while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
 															glfwWindowShouldClose(window) == 0 );

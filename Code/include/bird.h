@@ -1,7 +1,10 @@
 #ifndef __bird_h__
 #define __bird_h__
 
-#include "shape.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/euler_angles.hpp>
+#include<vector>
 
 //Weights for behaviour
 #define SEPARATION_WEIGHT 0.003
@@ -18,7 +21,7 @@ class Bird
 {
 public:
 
-	Bird(glm:vec3 position);
+	Bird();
 	void update(double dt, glm::vec3 velocity);
 
 	glm::vec3 getPosition();
@@ -31,8 +34,9 @@ public:
 	glm::vec3 aligment(std::vector<Bird*> neighbours);
 	glm::vec3 cohesion(std::vector<Bird*> neighbours);
 
+    double getRand(); //simple utility function 
 private:
-    glm:vec3 mPosition;
+    glm::vec3 mPosition;
 	glm::vec3 mVelocity;
 };
 #endif // __bird_h__

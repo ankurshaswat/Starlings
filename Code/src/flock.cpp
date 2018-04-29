@@ -1,5 +1,10 @@
 #include "flock.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/euler_angles.hpp>
+
+
 Flock::Flock()
 {
 }
@@ -18,14 +23,14 @@ void Flock::update(double dt)
 		std::vector<Bird*>::iterator second;
 		for(second=mBirds.begin(); second!=mBirds.end(); second++)
 		{
-			vec2 dist = vec3((*iter)->getPosition()-(*second)->getPosition());
+			vec3 dist = glm::vec3((*iter)->getPosition()-(*second)->getPosition());
 			float distance = glm::length(dist);
 			if( distance < NEIGHBOUR_RADIUS && distance > 0)
 			{
 				neighbours.push_back((*second));
 			}
 		}
-		vec2 velocity = (*iter)->separate(neighbours)*(float)SEPARATION_WEIGHT; 
+		vec3 velocity = (*iter)->separate(neighbours)*(float)SEPARATION_WEIGHT; 
 		velocity += (*iter)->aligment(neighbours)*(float)ALIGMENT_WEIGHT;
 		velocity += (*iter)->cohesion(neighbours)*(float)COHESION_WEIGHT;
 		

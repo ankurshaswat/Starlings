@@ -1,5 +1,13 @@
 #include "bird.h"
-#include "engineUtils.h"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/euler_angles.hpp>
+
+double Bird::getRand(){
+    return ((double) rand() / (RAND_MAX));
+}
+
 Bird::Bird()
 {
 	//Calculate random velocity
@@ -56,7 +64,7 @@ void Bird::update(double dt, glm::vec3 velocity)
 
 glm::vec3 Bird::getPosition()
 {
-	return glm::vec3(mPosition.x, mPostion.y,mPostion.z);
+	return glm::vec3(mPosition.x, mPosition.y,mPosition.z);
 }
 
 // glm::vec2 Bird::getForward()
@@ -72,7 +80,7 @@ void Bird::addVelocity()
 	{
 		
         //add velocity to position
-        mPosition= vec3(mPostion+mVelocity);
+        mPosition= glm::vec3(mPosition+mVelocity);
 	}
 
 

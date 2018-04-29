@@ -410,9 +410,10 @@ int main( void )
 								double omega = 2.0f * 3.14f / 3.0f;
 								// double omega = 0.0005f;
 								vec3 pos(0.3f,0.3f,0.3f);
-								Flock flock= new Flock();
+								Flock flock= Flock();
 								for(int i=0;i<FLOCK_SIZE;i++){
-									flock.add(new Bird());
+									Bird bird= Bird();
+									flock.add(&bird);
 								}
 								do {
 
@@ -598,7 +599,7 @@ int main( void )
 																std::vector<vec3> v;
 																flock.update(0.1);
 																for(auto it: flock.mBirds){
-																	v.push_back((*iter)->getPosition());
+																	v.push_back((*it).getPosition());
 																}
 																
 																renderFlock(v);

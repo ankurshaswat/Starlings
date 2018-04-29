@@ -5,7 +5,6 @@
 #include "bird.h"
 #include <glm/glm.hpp>
 #include <vector>
-#include "engineUtils.h"
 
 using namespace glm;
 

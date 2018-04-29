@@ -22,11 +22,14 @@ using namespace glm;
 
 #include <shader.hpp>
 #include <texture.hpp>
+#include<flock.h>
+#include<bird.h>
 #include <math.h>
 #include "glm/gtx/string_cast.hpp"
 // #include <common/controls.hpp>
 
 #define PI 3.14f
+#define FLOCK_SIZE 50
 
 
 GLuint programID;
@@ -227,6 +230,10 @@ int main( void )
 								double omega = 2.0f * 3.14f / 3.0f;
 								// double omega = 0.0005f;
 								vec3 pos(0.3f,0.3f,0.3f);
+								Flock flock= new Flock();
+								for(int i=0;i<FLOCK_SIZE;i++){
+									flock.add(new Bird());
+								}
 								do {
 
 																glm::vec3 cameraPos = glm::vec3(4.0f, 3.0f, -3.0f);
@@ -397,9 +404,11 @@ int main( void )
 
 																// glDrawArrays(GL_TRIANGLES, 6, 12*3); // 12*3 indices starting at 0 -> 12 triangles
 																std::vector<vec3> v;
-																v.push_back(vec3(0.3f));
-																v.push_back(vec3(-0.3f));
-
+																flock.update(0.1);
+																for(auto it: flock.mBirds){
+																	v.push_back((*iter)->getPosition());
+																}
+																
 																renderFlock(v);
 																// renderBoid(vec3(0.3f));
 

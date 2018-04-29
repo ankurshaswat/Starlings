@@ -375,7 +375,7 @@ int main( void )
 
 								std::vector<glm::vec2> uvs;
 								std::vector<glm::vec3> normals; // Won't be used at the moment.
-								bool res = loadOBJ("cube.obj", vertices, uvs, normals);
+								// bool res = loadOBJ("cube.obj", vertices, uvs, normals);
 
 								// Load it into a VBO
 
@@ -411,9 +411,12 @@ int main( void )
 								// double omega = 0.0005f;
 								vec3 pos(0.3f,0.3f,0.3f);
 								Flock flock= Flock();
+								cout<<"Initail pos-"<<endl;
 								for(int i=0;i<FLOCK_SIZE;i++){
 									Bird bird= Bird();
 									flock.add(&bird);
+									glm::vec3 temp=bird.getPosition();
+									cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
 								}
 								do {
 
@@ -598,8 +601,11 @@ int main( void )
 																// glDrawArrays(GL_TRIANGLES, 6, 12*3); // 12*3 indices starting at 0 -> 12 triangles
 																std::vector<vec3> v;
 																flock.update(0.1);
+																// cout<<"FLOCK-"<<endl<<endl;
 																for(auto it: flock.mBirds){
 																	v.push_back((*it).getPosition());
+																	glm::vec3 temp=(*it).getPosition();
+																	// cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
 																}
 																
 																renderFlock(v);

@@ -39,9 +39,9 @@ GLuint programID,MatrixID,ViewMatrixID,ModelMatrixID;
 std::vector<glm::vec3> vertices;
 glm::mat4 ViewMatrix,ProjectionMatrix,MVP,ModelMatrix,ScalingMatrix,TranslationMatrix,RotationMatrix;
 
-void renderBoid(vec3 pos);
+void renderBoid(vec3 pos,vec3 velocity);
 
-void renderFlock(std::vector<vec3> v);
+void renderFlock(std::vector<vec3> positions,std::vector<vec3> velocities);
 
 int main( void )
 {
@@ -548,7 +548,8 @@ int main( void )
 																// Draw the triangle !
 																glDrawArrays(GL_LINES, 0, 3*2); // 12*3 indices starting at 0 -> 12 triangles
 
-																std::vector<vec3> v;
+																std::vector<vec3> positions;
+																std::vector<vec3> velocities;
 																timer.tick();
 																dt = timer.getDeltaTime();
 																fps = timer.getFPS();
@@ -557,11 +558,14 @@ int main( void )
 
 																// cout<<"FLOCK-"<<endl<<endl;
 																for(auto it: flock.mBirds){
-																	v.push_back((*it).getPosition());
-																	glm::vec3 temp=(*it).getPosition();
-																	cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
+																	positions.push_back((*it).getPosition());
+																	velocities.push_back((*it).getVelocity());
+																	// glm::vec3 temp=(*it).getPosition();
+																	// cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
 																}
-																renderFlock(v);
+																renderFlock(positions,velocities);
+
+																
 																glDisableVertexAttribArray(0);
 																glDisableVertexAttribArray(1);
 																glDisableVertexAttribArray(2);
@@ -632,19 +636,29 @@ void displayFunc(){
 //     lasty = y;
 // }
 
-void renderFlock(std::vector<vec3> v){
+void renderFlock(std::vector<vec3> positions,std::vector<vec3> velocities){
 
 
 
-								for (size_t i = 0; i < v.size(); i++) {
-																renderBoid(v[i]);
+								for (size_t i = 0; i < positions.size(); i++) {
+																renderBoid(positions[i],velocities[i]);
 								}
 }
 
-void renderBoid(vec3 pos){
+void renderBoid(vec3 pos ,vec3 velocity ){
+
+								vec3 initOrientation = vec3(0.0f,1.0f,0.0f);
+								vec3 normVel=glm::normalize(velocity);
+								vec3 rotAxis = glm::cross(initOrientation , normVel);
+								rotAxis=glm::normalize(rotAxis);
+
+								mat4 rotMat = mat4(1.0f);
+
+								rotMat = glm::orientation(normVel,rotAxis);
+
 								TranslationMatrix = translate(mat4(), pos); // A bit to the right
 								ScalingMatrix = scale(mat4(), vec3(0.1f));
-								ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
+								ModelMatrix = TranslationMatrix * rotMat * ScalingMatrix;
 
 								MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 								glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);

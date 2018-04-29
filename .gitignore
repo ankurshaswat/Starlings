@@ -34,3 +34,6 @@
 #Build and Binary Directories
 build/
 bin/
+
+#VS Code
+.vscode/

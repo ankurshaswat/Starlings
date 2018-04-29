@@ -16,7 +16,9 @@ GLFWwindow* window;
 // Include GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 using namespace glm;
 
 #include <GL/glut.h>
@@ -367,13 +369,13 @@ int main( void )
 								vertices.push_back(vec3(0.0f,0.0f,1.0f));
 								vertices.push_back(vec3(0.0f,0.0f,-1.0f));
 
-								vertices.push_back(vec3(0.0f,1.0f,0.0f));
-								vertices.push_back(vec3(-1.0f,-1.0f,0.0f));
-								vertices.push_back(vec3(1.0f,-1.0f,0.0f));
+								vertices.push_back(vec3(0.0f,0.0f,1.0f));
+								vertices.push_back(vec3(-1.0f,0.0f,-1.0f));
+								vertices.push_back(vec3(1.0f,0.0f,-1.0f));
 
-								vertices.push_back(vec3(0.0f,1.0f,0.0f));
+								vertices.push_back(vec3(0.0f,0.0f,1.0f));
 								vertices.push_back(vec3(0.0f,-1.0f,-1.0f));
-								vertices.push_back(vec3(0.0f,-1.0f,1.0f));
+								vertices.push_back(vec3(0.0f,1.0f,-1.0f));
 
 								std::vector<glm::vec2> uvs;
 								std::vector<glm::vec3> normals; // Won't be used at the moment.
@@ -481,7 +483,13 @@ int main( void )
 																// float camZ = cos(glfwGetTime()) * radius;
 
 																ViewMatrix;
+																// if(cameraUp.z > 0){
 																ViewMatrix = glm::lookAt(rotated, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+													
+																// }else{
+																// ViewMatrix = glm::lookAt(rotated, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0));
+
+																// }
 
 
 																i++;
@@ -573,7 +581,7 @@ int main( void )
 																// Swap buffers
 																glfwSwapBuffers(window);
 																glfwPollEvents();
-																cin.ignore();
+																// cin.ignore();
 								} // Check if the ESC key was pressed or the window was closed
 								while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
 															glfwWindowShouldClose(window) == 0 );
@@ -647,18 +655,27 @@ void renderFlock(std::vector<vec3> positions,std::vector<vec3> velocities){
 
 void renderBoid(vec3 pos ,vec3 velocity ){
 
-								vec3 initOrientation = vec3(0.0f,1.0f,0.0f);
+								// vec3 initOrientation = vec3(1.0f,0.0f,0.0f);
+								vec3 initOrientation = vec3(0.0f,0.0f,1.0f);
 								vec3 normVel=glm::normalize(velocity);
 								vec3 rotAxis = glm::cross(initOrientation , normVel);
 								rotAxis=glm::normalize(rotAxis);
 
 								mat4 rotMat = mat4(1.0f);
 
-								rotMat = glm::orientation(normVel,rotAxis);
+								// float angle = acos( glm::dot(initOrientation,normVel) ) * 180.0 / PI;
+								float angle = acos( glm::dot(initOrientation,normVel) ) ;
 
+								// rotMat = glm::orientation(normVel,rotAxis);
+								rotMat = glm::rotate(angle,rotAxis);
+								// rotMat = glm::orientation(rotAxis,normVel);
+								cout<<glm::to_string(rotMat)<<endl;
+								// cout<<"Trying"<<endl;
+								// RotationMatrix rotate(mat4(),normVel);
 								TranslationMatrix = translate(mat4(), pos); // A bit to the right
 								ScalingMatrix = scale(mat4(), vec3(0.1f));
 								ModelMatrix = TranslationMatrix * rotMat * ScalingMatrix;
+								// ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
 
 								MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 								glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);

@@ -68,6 +68,7 @@ glm::vec3 Bird::getPosition()
 {
 	return glm::vec3(mPosition.x, mPosition.y,mPosition.z);
 }
+
 // glm::vec2 Bird::getForward()
 // {
 // 	glm::mat4 matrix = mShape->getModelMatrix();

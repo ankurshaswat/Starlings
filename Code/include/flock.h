@@ -13,7 +13,7 @@ class Flock
 public:
 	Flock();
 	void add(Bird *b);
-	void update(double dt);
+	void update(double dt, float separation, float alignment, float cohesion, float target , bool target_present );
 	void updateTargets();
 
 	double getRand();

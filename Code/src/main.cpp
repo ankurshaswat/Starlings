@@ -35,8 +35,15 @@ using namespace glm;
 
 #define PI 3.14f
 #define FLOCK_SIZE 100
-#define INTERVAL 1000000
+#define INTERVAL 3500
 
+
+float separation= 0.003f;
+float alignment= 0.7f;
+float cohesion= 0.3f;
+float target= 0.3f;
+
+bool target_present=true;
 
 GLuint programID,MatrixID,ViewMatrixID,ModelMatrixID;
 std::vector<glm::vec3> vertices;
@@ -45,6 +52,7 @@ glm::mat4 ViewMatrix,ProjectionMatrix,MVP,ModelMatrix,ScalingMatrix,TranslationM
 void renderBoid(vec3 pos,vec3 velocity);
 
 void renderFlock(std::vector<vec3> positions,std::vector<vec3> velocities);
+
 
 int main( void )
 {
@@ -564,7 +572,7 @@ int main( void )
 																dt = timer.getDeltaTime();
 																fps = timer.getFPS();
 
-																flock.update(dt);
+																flock.update(dt,separation,alignment,cohesion,target,target_present);
 
 																// cout<<"FLOCK-"<<endl<<endl;
 																for(auto it: flock.mBirds){
@@ -575,10 +583,23 @@ int main( void )
 																}
 																renderFlock(positions,velocities);
 																count++;
-																if(count % INTERVAL ==0){
+																// std::cout<<count<<std::endl;
+																if(count % (2*INTERVAL) ==0){
 																	count=0;
 																	flock.updateTargets();
+																	separation=0.003f;
+																	cohesion=0.3f;
+																	alignment=0.7f;
+																	target_present=true;
+																	std::cout<<"SWITCH2"<<std::endl;
 																}			
+																else if(count%INTERVAL==0){
+																	separation=3.0f;
+																	cohesion=0.003f;
+																	alignment=0.007f;
+																	target_present=false;
+																	std::cout<<"SWITCH1"<<std::endl;
+																}
 
 																
 																glDisableVertexAttribArray(0);

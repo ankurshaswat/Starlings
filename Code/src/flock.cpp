@@ -12,7 +12,7 @@ Flock::Flock()
 }
 
 double Flock::getRand(){
-    return ((double) rand() / (RAND_MAX));
+    return ( ((double) rand() / (RAND_MAX)) * 2 ) -1;
 }
 
 void Flock::add(Bird *b)
@@ -22,13 +22,13 @@ void Flock::add(Bird *b)
 
 void Flock::updateTargets()
 {
-	glm::vec3 newTarget= glm::vec3 (5.0f * getRand(), 5.0f * getRand(), 5.0f * getRand()  );
+	glm::vec3 newTarget= glm::vec3 (3.0f * getRand(), 3.0f * getRand(), 3.0f * getRand()  );
 	for (auto it: mBirds){
 		(*it).mTarget=newTarget + glm::vec3 (2.0f * getRand(), 2.0f * getRand(), 2.0f * getRand()  );
 	}
 }
 
-void Flock::update(double dt)
+void Flock::update(double dt, float separation_wt, float alignment_wt, float cohesion_wt, float target_wt , bool target_present)
 {
 	
 	std::vector<Bird*>::iterator iter;
@@ -47,10 +47,10 @@ void Flock::update(double dt)
 		}
 		glm::vec3 temp= (*iter)->getPosition();
 		// std::cout<<"BEFORE EVERYTHING-"<<temp.x<<" "<<temp.y<<" "<<temp.z<<std::endl;
-		vec3 velocity = (*iter)->separate(neighbours)*(float)SEPARATION_WEIGHT; 
-		velocity += (*iter)->aligment(neighbours)*(float)ALIGMENT_WEIGHT;
-		velocity += (*iter)->cohesion(neighbours)*(float)COHESION_WEIGHT;
-		velocity += (*iter)->followTarget()*(float)TARGET_WEIGHT;
+		vec3 velocity = (*iter)->separate(neighbours)*separation_wt; 
+		velocity += (*iter)->aligment(neighbours)*alignment_wt;
+		velocity += (*iter)->cohesion(neighbours)*cohesion_wt;
+		if(target_present) velocity += (*iter)->followTarget()*target_wt;
 		
 		
 		velocity *= MAX_SPEED;

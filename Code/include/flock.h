@@ -14,7 +14,9 @@ public:
 	Flock();
 	void add(Bird *b);
 	void update(double dt);
+	void updateTargets();
 
+	double getRand();
 	std::vector<Bird*> mBirds;
 
 };

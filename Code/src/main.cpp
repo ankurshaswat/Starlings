@@ -34,7 +34,8 @@ using namespace glm;
 // #include <common/controls.hpp>
 
 #define PI 3.14f
-#define FLOCK_SIZE 50
+#define FLOCK_SIZE 100
+#define INTERVAL 1000000
 
 
 GLuint programID,MatrixID,ViewMatrixID,ModelMatrixID;
@@ -419,13 +420,14 @@ int main( void )
 								double fps;
 
 								Flock flock= Flock();
-								cout<<"Initail pos-"<<endl;
+								// cout<<"Initail pos-"<<endl;
 								for(int i=0;i<FLOCK_SIZE;i++){
 									// Bird bird= Bird();
 									flock.add(new Bird());
 									// glm::vec3 temp=bird.getPosition();
 									// cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
 								}
+								int count=0;
 								do {
 
 																glm::vec3 cameraPos = glm::vec3(4.0f, 3.0f, -3.0f);
@@ -572,6 +574,11 @@ int main( void )
 																	// cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
 																}
 																renderFlock(positions,velocities);
+																count++;
+																if(count % INTERVAL ==0){
+																	count=0;
+																	flock.updateTargets();
+																}			
 
 																
 																glDisableVertexAttribArray(0);
@@ -669,7 +676,7 @@ void renderBoid(vec3 pos ,vec3 velocity ){
 								// rotMat = glm::orientation(normVel,rotAxis);
 								rotMat = glm::rotate(angle,rotAxis);
 								// rotMat = glm::orientation(rotAxis,normVel);
-								cout<<glm::to_string(rotMat)<<endl;
+								// cout<<glm::to_string(rotMat)<<endl;
 								// cout<<"Trying"<<endl;
 								// RotationMatrix rotate(mat4(),normVel);
 								TranslationMatrix = translate(mat4(), pos); // A bit to the right

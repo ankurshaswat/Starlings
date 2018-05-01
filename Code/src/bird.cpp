@@ -32,31 +32,31 @@ void Bird::update(double dt, glm::vec3 velocity)
 	}
 	addVelocity();
 	glm::vec3 pos = getPosition();
-	// if(pos.y > 5.0f)
-	// {
-	// 	pos.y = -5.0f;
-	// }
-	// else if(pos.y < -5.0f)
-	// {
-	// 	pos.y = 5.0f;
-	// }
-	// if(pos.x > 5.0f)
-	// {
-	// 	pos.x = -5.0f;
-	// }
-	// else if(pos.x < -5.0f)
-	// {
-	// 	pos.x = 5.0f;
-	// }
+	if(pos.y > 5.0f)
+	{
+		pos.y = -5.0f;
+	}
+	else if(pos.y < -5.0f)
+	{
+		pos.y = 5.0f;
+	}
+	if(pos.x > 5.0f)
+	{
+		pos.x = -5.0f;
+	}
+	else if(pos.x < -5.0f)
+	{
+		pos.x = 5.0f;
+	}
 
-    // if(pos.z > 5.0f)
-	// {
-	// 	pos.z = -5.0f;
-	// }
-	// else if(pos.z < -5.0f)
-	// {
-	// 	pos.z = 5.0f;
-	// }
+    if(pos.z > 5.0f)
+	{
+		pos.z = -5.0f;
+	}
+	else if(pos.z < -5.0f)
+	{
+		pos.z = 5.0f;
+	}
 
 	mPosition.x = pos.x;
 	mPosition.y = pos.y;
@@ -135,6 +135,36 @@ glm::vec3 Bird::cohesion(std::vector<Bird*> neighbours)
 		return glm::vec3(0,0,0);
 	}
 }
+
+glm::vec3 Bird::followTarget()
+{
+	int count = 0;
+		glm::vec3 myPos = getPosition();
+		glm::vec3 desired = mTarget-myPos;
+
+		float d = glm::length(desired);
+		if(d > 0.0f)
+		{
+			desired /= d;
+			if(d < 0.3f)
+			{
+				desired *=(float)MAX_SPEED*(d/0.3f);
+
+			}
+			else
+			{
+				desired *=(float)MAX_SPEED;
+			}
+			return desired-mVelocity;
+		}
+		else
+		{
+			return glm::vec3(0,0,0);
+		}
+	
+}
+
+
 
 glm::vec3 Bird::aligment(std::vector<Bird*> neighbours)
 {

@@ -1,0 +1,273 @@
+\hypertarget{main_8cpp}{}\section{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.\+cpp@{main.\+cpp}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$future$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$G\+L/glew.\+h$>$}\newline
+{\ttfamily \#include $<$G\+L\+F\+W/glfw3.\+h$>$}\newline
+{\ttfamily \#include $<$glm/glm.\+hpp$>$}\newline
+{\ttfamily \#include $<$glm/gtc/matrix\+\_\+transform.\+hpp$>$}\newline
+{\ttfamily \#include $<$glm/gtx/transform.\+hpp$>$}\newline
+{\ttfamily \#include $<$glm/gtx/euler\+\_\+angles.\+hpp$>$}\newline
+{\ttfamily \#include $<$glm/gtx/rotate\+\_\+vector.\+hpp$>$}\newline
+{\ttfamily \#include $<$G\+L/glut.\+h$>$}\newline
+{\ttfamily \#include $<$shader.\+hpp$>$}\newline
+{\ttfamily \#include $<$texture.\+hpp$>$}\newline
+{\ttfamily \#include $<$flock.\+h$>$}\newline
+{\ttfamily \#include $<$bird.\+h$>$}\newline
+{\ttfamily \#include $<$simul\+Timer.\+h$>$}\newline
+{\ttfamily \#include $<$objloader.\+hpp$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}glm/gtx/string\+\_\+cast.\+hpp\char`\"{}}\newline
+Include dependency graph for main.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{main_8cpp_a598a3330b3c21701223ee0ca14316eca}{PI}~3.\+14f
+\item 
+\#define \hyperlink{main_8cpp_a85f21588f69ad91603849de447868fc1}{F\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}~100
+\item 
+\#define \hyperlink{main_8cpp_ab39fec97d85960796efedec442f38004}{I\+N\+T\+E\+R\+V\+AL}~3500
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8cpp_a5382c76c0c292c76ddca426e79ad53ba}{render\+Boid} (vec3 pos, vec3 velocity)
+\item 
+void \hyperlink{main_8cpp_ae357309218a54bd5e4b1b7384aad7d43}{render\+Flock} (std\+::vector$<$ vec3 $>$ positions, std\+::vector$<$ vec3 $>$ velocities)
+\item 
+void \hyperlink{main_8cpp_a47bc1e4f1c5cd638d0d874656b5e42c5}{update\+Flock} (\hyperlink{classFlock}{Flock} flock)
+\item 
+int \hyperlink{main_8cpp_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\item 
+void \hyperlink{main_8cpp_ad5d35421be86f18ae8124f285be25b7a}{mouse\+Call\+Back} ()
+\item 
+void \hyperlink{main_8cpp_af862c2d9fec42d60d8397eaba2b438ed}{motion\+Call\+Back} ()
+\item 
+void \hyperlink{main_8cpp_a64c582abc11d1b9939c4a03036188a41}{display\+Func} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+G\+L\+F\+Wwindow $\ast$ \hyperlink{main_8cpp_a80de27bd7dc4e2b2ad3d5895b97a70f0}{window}
+\item 
+float \hyperlink{main_8cpp_a3d47f7e2bf80c3044a1c4fb985d08565}{separation} = 0.\+003f
+\item 
+float \hyperlink{main_8cpp_a9b609437b0a9c5266747f6a31b8bf90e}{alignment} = 0.\+7f
+\item 
+float \hyperlink{main_8cpp_ab665ec90cc49c91ed2d1e7e0ca3c386e}{cohesion} = 0.\+3f
+\item 
+float \hyperlink{main_8cpp_af0df2177301e4061ab72ade2ea437bcd}{target} = 0.\+3f
+\item 
+bool \hyperlink{main_8cpp_aae9e26fee26af7722250e6b27dbdf37a}{target\+\_\+present} =true
+\item 
+G\+Luint \hyperlink{main_8cpp_a391fd187e1c163e1bc7dc26a34c402f2}{program\+ID}
+\item 
+G\+Luint \hyperlink{main_8cpp_a6f91d732d0b524c77be0df6beaa6d55f}{Matrix\+ID}
+\item 
+G\+Luint \hyperlink{main_8cpp_ab19cf36286363450e9a1a48f906f606f}{View\+Matrix\+ID}
+\item 
+G\+Luint \hyperlink{main_8cpp_ad471614cd302ae9dcc9f95cbb8d9e8fc}{Model\+Matrix\+ID}
+\item 
+std\+::vector$<$ glm\+::vec3 $>$ \hyperlink{main_8cpp_afbb9924ed1034bf20e5bf8b38f066567}{vertices}
+\item 
+glm\+::mat4 \hyperlink{main_8cpp_ab276b213c71fd372d962f617566518be}{View\+Matrix}
+\item 
+glm\+::mat4 \hyperlink{main_8cpp_af437a7042c55c02cfdbd4a1e074b890a}{Projection\+Matrix}
+\item 
+glm\+::mat4 \hyperlink{main_8cpp_a9bf91bc5771e47fdb3c7261ca19a3155}{M\+VP}
+\item 
+glm\+::mat4 \hyperlink{main_8cpp_a69296e88c57209be1d9dfea383abcc0d}{Model\+Matrix}
+\item 
+glm\+::mat4 \hyperlink{main_8cpp_a386c5cb6b9262f694155a0fe1c3b59c8}{Scaling\+Matrix}
+\item 
+glm\+::mat4 \hyperlink{main_8cpp_a7cb1d8950469897786959fc93eac4652}{Translation\+Matrix}
+\item 
+glm\+::mat4 \hyperlink{main_8cpp_ae1481fbae22ad889b3048ce68edf6ec8}{Rotation\+Matrix}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{main_8cpp_a85f21588f69ad91603849de447868fc1}\label{main_8cpp_a85f21588f69ad91603849de447868fc1}} 
+\index{main.\+cpp@{main.\+cpp}!F\+L\+O\+C\+K\+\_\+\+S\+I\+ZE@{F\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}}
+\index{F\+L\+O\+C\+K\+\_\+\+S\+I\+ZE@{F\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{F\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}{FLOCK\_SIZE}}
+{\footnotesize\ttfamily \#define F\+L\+O\+C\+K\+\_\+\+S\+I\+ZE~100}
+
+\mbox{\Hypertarget{main_8cpp_ab39fec97d85960796efedec442f38004}\label{main_8cpp_ab39fec97d85960796efedec442f38004}} 
+\index{main.\+cpp@{main.\+cpp}!I\+N\+T\+E\+R\+V\+AL@{I\+N\+T\+E\+R\+V\+AL}}
+\index{I\+N\+T\+E\+R\+V\+AL@{I\+N\+T\+E\+R\+V\+AL}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{I\+N\+T\+E\+R\+V\+AL}{INTERVAL}}
+{\footnotesize\ttfamily \#define I\+N\+T\+E\+R\+V\+AL~3500}
+
+\mbox{\Hypertarget{main_8cpp_a598a3330b3c21701223ee0ca14316eca}\label{main_8cpp_a598a3330b3c21701223ee0ca14316eca}} 
+\index{main.\+cpp@{main.\+cpp}!PI@{PI}}
+\index{PI@{PI}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{PI}{PI}}
+{\footnotesize\ttfamily \#define PI~3.\+14f}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_a64c582abc11d1b9939c4a03036188a41}\label{main_8cpp_a64c582abc11d1b9939c4a03036188a41}} 
+\index{main.\+cpp@{main.\+cpp}!display\+Func@{display\+Func}}
+\index{display\+Func@{display\+Func}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{display\+Func()}{displayFunc()}}
+{\footnotesize\ttfamily void display\+Func (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8cpp_a840291bc02cba5474a4cb46a9b9566fe}} 
+\index{main.\+cpp@{main.\+cpp}!main@{main}}
+\index{main@{main}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_af862c2d9fec42d60d8397eaba2b438ed}\label{main_8cpp_af862c2d9fec42d60d8397eaba2b438ed}} 
+\index{main.\+cpp@{main.\+cpp}!motion\+Call\+Back@{motion\+Call\+Back}}
+\index{motion\+Call\+Back@{motion\+Call\+Back}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{motion\+Call\+Back()}{motionCallBack()}}
+{\footnotesize\ttfamily void motion\+Call\+Back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_ad5d35421be86f18ae8124f285be25b7a}\label{main_8cpp_ad5d35421be86f18ae8124f285be25b7a}} 
+\index{main.\+cpp@{main.\+cpp}!mouse\+Call\+Back@{mouse\+Call\+Back}}
+\index{mouse\+Call\+Back@{mouse\+Call\+Back}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{mouse\+Call\+Back()}{mouseCallBack()}}
+{\footnotesize\ttfamily void mouse\+Call\+Back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_a5382c76c0c292c76ddca426e79ad53ba}\label{main_8cpp_a5382c76c0c292c76ddca426e79ad53ba}} 
+\index{main.\+cpp@{main.\+cpp}!render\+Boid@{render\+Boid}}
+\index{render\+Boid@{render\+Boid}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{render\+Boid()}{renderBoid()}}
+{\footnotesize\ttfamily void render\+Boid (\begin{DoxyParamCaption}\item[{vec3}]{pos,  }\item[{vec3}]{velocity }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_ae357309218a54bd5e4b1b7384aad7d43}\label{main_8cpp_ae357309218a54bd5e4b1b7384aad7d43}} 
+\index{main.\+cpp@{main.\+cpp}!render\+Flock@{render\+Flock}}
+\index{render\+Flock@{render\+Flock}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{render\+Flock()}{renderFlock()}}
+{\footnotesize\ttfamily void render\+Flock (\begin{DoxyParamCaption}\item[{std\+::vector$<$ vec3 $>$}]{positions,  }\item[{std\+::vector$<$ vec3 $>$}]{velocities }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_a47bc1e4f1c5cd638d0d874656b5e42c5}\label{main_8cpp_a47bc1e4f1c5cd638d0d874656b5e42c5}} 
+\index{main.\+cpp@{main.\+cpp}!update\+Flock@{update\+Flock}}
+\index{update\+Flock@{update\+Flock}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{update\+Flock()}{updateFlock()}}
+{\footnotesize\ttfamily void update\+Flock (\begin{DoxyParamCaption}\item[{\hyperlink{classFlock}{Flock}}]{flock }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{main_8cpp_a9b609437b0a9c5266747f6a31b8bf90e}\label{main_8cpp_a9b609437b0a9c5266747f6a31b8bf90e}} 
+\index{main.\+cpp@{main.\+cpp}!alignment@{alignment}}
+\index{alignment@{alignment}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{alignment}{alignment}}
+{\footnotesize\ttfamily float alignment = 0.\+7f}
+
+\mbox{\Hypertarget{main_8cpp_ab665ec90cc49c91ed2d1e7e0ca3c386e}\label{main_8cpp_ab665ec90cc49c91ed2d1e7e0ca3c386e}} 
+\index{main.\+cpp@{main.\+cpp}!cohesion@{cohesion}}
+\index{cohesion@{cohesion}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{cohesion}{cohesion}}
+{\footnotesize\ttfamily float cohesion = 0.\+3f}
+
+\mbox{\Hypertarget{main_8cpp_a6f91d732d0b524c77be0df6beaa6d55f}\label{main_8cpp_a6f91d732d0b524c77be0df6beaa6d55f}} 
+\index{main.\+cpp@{main.\+cpp}!Matrix\+ID@{Matrix\+ID}}
+\index{Matrix\+ID@{Matrix\+ID}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{Matrix\+ID}{MatrixID}}
+{\footnotesize\ttfamily G\+Luint Matrix\+ID}
+
+\mbox{\Hypertarget{main_8cpp_a69296e88c57209be1d9dfea383abcc0d}\label{main_8cpp_a69296e88c57209be1d9dfea383abcc0d}} 
+\index{main.\+cpp@{main.\+cpp}!Model\+Matrix@{Model\+Matrix}}
+\index{Model\+Matrix@{Model\+Matrix}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{Model\+Matrix}{ModelMatrix}}
+{\footnotesize\ttfamily glm\+::mat4 Model\+Matrix}
+
+\mbox{\Hypertarget{main_8cpp_ad471614cd302ae9dcc9f95cbb8d9e8fc}\label{main_8cpp_ad471614cd302ae9dcc9f95cbb8d9e8fc}} 
+\index{main.\+cpp@{main.\+cpp}!Model\+Matrix\+ID@{Model\+Matrix\+ID}}
+\index{Model\+Matrix\+ID@{Model\+Matrix\+ID}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{Model\+Matrix\+ID}{ModelMatrixID}}
+{\footnotesize\ttfamily G\+Luint Model\+Matrix\+ID}
+
+\mbox{\Hypertarget{main_8cpp_a9bf91bc5771e47fdb3c7261ca19a3155}\label{main_8cpp_a9bf91bc5771e47fdb3c7261ca19a3155}} 
+\index{main.\+cpp@{main.\+cpp}!M\+VP@{M\+VP}}
+\index{M\+VP@{M\+VP}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{M\+VP}{MVP}}
+{\footnotesize\ttfamily glm\+::mat4 M\+VP}
+
+\mbox{\Hypertarget{main_8cpp_a391fd187e1c163e1bc7dc26a34c402f2}\label{main_8cpp_a391fd187e1c163e1bc7dc26a34c402f2}} 
+\index{main.\+cpp@{main.\+cpp}!program\+ID@{program\+ID}}
+\index{program\+ID@{program\+ID}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{program\+ID}{programID}}
+{\footnotesize\ttfamily G\+Luint program\+ID}
+
+\mbox{\Hypertarget{main_8cpp_af437a7042c55c02cfdbd4a1e074b890a}\label{main_8cpp_af437a7042c55c02cfdbd4a1e074b890a}} 
+\index{main.\+cpp@{main.\+cpp}!Projection\+Matrix@{Projection\+Matrix}}
+\index{Projection\+Matrix@{Projection\+Matrix}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{Projection\+Matrix}{ProjectionMatrix}}
+{\footnotesize\ttfamily glm\+::mat4 Projection\+Matrix}
+
+\mbox{\Hypertarget{main_8cpp_ae1481fbae22ad889b3048ce68edf6ec8}\label{main_8cpp_ae1481fbae22ad889b3048ce68edf6ec8}} 
+\index{main.\+cpp@{main.\+cpp}!Rotation\+Matrix@{Rotation\+Matrix}}
+\index{Rotation\+Matrix@{Rotation\+Matrix}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{Rotation\+Matrix}{RotationMatrix}}
+{\footnotesize\ttfamily glm\+::mat4 Rotation\+Matrix}
+
+\mbox{\Hypertarget{main_8cpp_a386c5cb6b9262f694155a0fe1c3b59c8}\label{main_8cpp_a386c5cb6b9262f694155a0fe1c3b59c8}} 
+\index{main.\+cpp@{main.\+cpp}!Scaling\+Matrix@{Scaling\+Matrix}}
+\index{Scaling\+Matrix@{Scaling\+Matrix}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{Scaling\+Matrix}{ScalingMatrix}}
+{\footnotesize\ttfamily glm\+::mat4 Scaling\+Matrix}
+
+\mbox{\Hypertarget{main_8cpp_a3d47f7e2bf80c3044a1c4fb985d08565}\label{main_8cpp_a3d47f7e2bf80c3044a1c4fb985d08565}} 
+\index{main.\+cpp@{main.\+cpp}!separation@{separation}}
+\index{separation@{separation}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{separation}{separation}}
+{\footnotesize\ttfamily float separation = 0.\+003f}
+
+\mbox{\Hypertarget{main_8cpp_af0df2177301e4061ab72ade2ea437bcd}\label{main_8cpp_af0df2177301e4061ab72ade2ea437bcd}} 
+\index{main.\+cpp@{main.\+cpp}!target@{target}}
+\index{target@{target}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{target}{target}}
+{\footnotesize\ttfamily float target = 0.\+3f}
+
+\mbox{\Hypertarget{main_8cpp_aae9e26fee26af7722250e6b27dbdf37a}\label{main_8cpp_aae9e26fee26af7722250e6b27dbdf37a}} 
+\index{main.\+cpp@{main.\+cpp}!target\+\_\+present@{target\+\_\+present}}
+\index{target\+\_\+present@{target\+\_\+present}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{target\+\_\+present}{target\_present}}
+{\footnotesize\ttfamily bool target\+\_\+present =true}
+
+\mbox{\Hypertarget{main_8cpp_a7cb1d8950469897786959fc93eac4652}\label{main_8cpp_a7cb1d8950469897786959fc93eac4652}} 
+\index{main.\+cpp@{main.\+cpp}!Translation\+Matrix@{Translation\+Matrix}}
+\index{Translation\+Matrix@{Translation\+Matrix}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{Translation\+Matrix}{TranslationMatrix}}
+{\footnotesize\ttfamily glm\+::mat4 Translation\+Matrix}
+
+\mbox{\Hypertarget{main_8cpp_afbb9924ed1034bf20e5bf8b38f066567}\label{main_8cpp_afbb9924ed1034bf20e5bf8b38f066567}} 
+\index{main.\+cpp@{main.\+cpp}!vertices@{vertices}}
+\index{vertices@{vertices}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{vertices}{vertices}}
+{\footnotesize\ttfamily std\+::vector$<$glm\+::vec3$>$ vertices}
+
+\mbox{\Hypertarget{main_8cpp_ab276b213c71fd372d962f617566518be}\label{main_8cpp_ab276b213c71fd372d962f617566518be}} 
+\index{main.\+cpp@{main.\+cpp}!View\+Matrix@{View\+Matrix}}
+\index{View\+Matrix@{View\+Matrix}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{View\+Matrix}{ViewMatrix}}
+{\footnotesize\ttfamily glm\+::mat4 View\+Matrix}
+
+\mbox{\Hypertarget{main_8cpp_ab19cf36286363450e9a1a48f906f606f}\label{main_8cpp_ab19cf36286363450e9a1a48f906f606f}} 
+\index{main.\+cpp@{main.\+cpp}!View\+Matrix\+ID@{View\+Matrix\+ID}}
+\index{View\+Matrix\+ID@{View\+Matrix\+ID}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{View\+Matrix\+ID}{ViewMatrixID}}
+{\footnotesize\ttfamily G\+Luint View\+Matrix\+ID}
+
+\mbox{\Hypertarget{main_8cpp_a80de27bd7dc4e2b2ad3d5895b97a70f0}\label{main_8cpp_a80de27bd7dc4e2b2ad3d5895b97a70f0}} 
+\index{main.\+cpp@{main.\+cpp}!window@{window}}
+\index{window@{window}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{window}{window}}
+{\footnotesize\ttfamily G\+L\+F\+Wwindow$\ast$ window}
+

@@ -1,0 +1,149 @@
+\hypertarget{classOctree}{}\section{Octree$<$ N $>$ Class Template Reference}
+\label{classOctree}\index{Octree$<$ N $>$@{Octree$<$ N $>$}}
+
+
+{\ttfamily \#include $<$Octree.\+h$>$}
+
+
+
+Collaboration diagram for Octree$<$ N $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classOctree__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classOctree_1_1Callback}{Callback}
+\item 
+class \hyperlink{classOctree_1_1Iterator}{Iterator}
+\item 
+struct \hyperlink{structOctree_1_1OctreeNode}{Octree\+Node}
+\item 
+struct \hyperlink{structOctree_1_1Point}{Point}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classOctree_aad1a0fd489e7412610b0161cff5da573}{Octree} (float min\mbox{[}3\mbox{]}, float max\mbox{[}3\mbox{]}, float cell\+Size\mbox{[}3\mbox{]})
+\item 
+virtual \hyperlink{classOctree_a7fb8884a9c9147da4020217f58237932}{$\sim$\+Octree} ()
+\item 
+N \& \hyperlink{classOctree_aeb0eeedf29f8c026ba53689def0c2f6b}{get\+Cell} (const float pos\mbox{[}3\mbox{]}, \hyperlink{classOctree_1_1Callback}{Callback} $\ast$callback=N\+U\+LL)
+\item 
+void \hyperlink{classOctree_a13d22bffc1be63deb3557c230ac5e17e}{traverse} (\hyperlink{classOctree_1_1Callback}{Callback} $\ast$callback)
+\item 
+void \hyperlink{classOctree_a4038c20a015dbf6b74fd9ccd76fb80cd}{clear} ()
+\item 
+\hyperlink{classOctree_1_1Iterator}{Iterator} \hyperlink{classOctree_ad2974d58fadff0b043d6e8b1828b509c}{get\+Iterator} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classOctree_a2f7949797701cd01d398a76c323ec845}{traverse\+Recursive} (\hyperlink{classOctree_1_1Callback}{Callback} $\ast$callback, const \hyperlink{structOctree_1_1Point}{Point} \&curr\+Min, const \hyperlink{structOctree_1_1Point}{Point} \&curr\+Max, \hyperlink{structOctree_1_1OctreeNode}{Octree\+Node} $\ast$curr\+Node)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structOctree_1_1Point}{Point} \hyperlink{classOctree_ab47cc9e63705799270956fc6f769c277}{\+\_\+min}
+\item 
+\hyperlink{structOctree_1_1Point}{Point} \hyperlink{classOctree_a58bcb3926893c3c8d463e05859fd600c}{\+\_\+max}
+\item 
+\hyperlink{structOctree_1_1Point}{Point} \hyperlink{classOctree_a6b398a3bf87d71dabc6b72180a551f0b}{\+\_\+cell\+Size}
+\item 
+\hyperlink{structOctree_1_1OctreeNode}{Octree\+Node} $\ast$ \hyperlink{classOctree_a1825458b3af1769fc9ce7021b8438574}{\+\_\+root}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classOctree_aad1a0fd489e7412610b0161cff5da573}\label{classOctree_aad1a0fd489e7412610b0161cff5da573}} 
+\index{Octree@{Octree}!Octree@{Octree}}
+\index{Octree@{Octree}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{Octree()}{Octree()}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+\hyperlink{classOctree}{Octree}$<$ N $>$\+::\hyperlink{classOctree}{Octree} (\begin{DoxyParamCaption}\item[{float}]{min\mbox{[}3\mbox{]},  }\item[{float}]{max\mbox{[}3\mbox{]},  }\item[{float}]{cell\+Size\mbox{[}3\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classOctree_a7fb8884a9c9147da4020217f58237932}\label{classOctree_a7fb8884a9c9147da4020217f58237932}} 
+\index{Octree@{Octree}!````~Octree@{$\sim$\+Octree}}
+\index{````~Octree@{$\sim$\+Octree}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{$\sim$\+Octree()}{~Octree()}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+virtual \hyperlink{classOctree}{Octree}$<$ N $>$\+::$\sim$\hyperlink{classOctree}{Octree} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classOctree_a4038c20a015dbf6b74fd9ccd76fb80cd}\label{classOctree_a4038c20a015dbf6b74fd9ccd76fb80cd}} 
+\index{Octree@{Octree}!clear@{clear}}
+\index{clear@{clear}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+void \hyperlink{classOctree}{Octree}$<$ N $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classOctree_aeb0eeedf29f8c026ba53689def0c2f6b}\label{classOctree_aeb0eeedf29f8c026ba53689def0c2f6b}} 
+\index{Octree@{Octree}!get\+Cell@{get\+Cell}}
+\index{get\+Cell@{get\+Cell}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{get\+Cell()}{getCell()}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+N\& \hyperlink{classOctree}{Octree}$<$ N $>$\+::get\+Cell (\begin{DoxyParamCaption}\item[{const float}]{pos\mbox{[}3\mbox{]},  }\item[{\hyperlink{classOctree_1_1Callback}{Callback} $\ast$}]{callback = {\ttfamily NULL} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classOctree_ad2974d58fadff0b043d6e8b1828b509c}\label{classOctree_ad2974d58fadff0b043d6e8b1828b509c}} 
+\index{Octree@{Octree}!get\+Iterator@{get\+Iterator}}
+\index{get\+Iterator@{get\+Iterator}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{get\+Iterator()}{getIterator()}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+\hyperlink{classOctree_1_1Iterator}{Iterator} \hyperlink{classOctree}{Octree}$<$ N $>$\+::get\+Iterator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classOctree_a13d22bffc1be63deb3557c230ac5e17e}\label{classOctree_a13d22bffc1be63deb3557c230ac5e17e}} 
+\index{Octree@{Octree}!traverse@{traverse}}
+\index{traverse@{traverse}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{traverse()}{traverse()}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+void \hyperlink{classOctree}{Octree}$<$ N $>$\+::traverse (\begin{DoxyParamCaption}\item[{\hyperlink{classOctree_1_1Callback}{Callback} $\ast$}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classOctree_a2f7949797701cd01d398a76c323ec845}\label{classOctree_a2f7949797701cd01d398a76c323ec845}} 
+\index{Octree@{Octree}!traverse\+Recursive@{traverse\+Recursive}}
+\index{traverse\+Recursive@{traverse\+Recursive}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{traverse\+Recursive()}{traverseRecursive()}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+void \hyperlink{classOctree}{Octree}$<$ N $>$\+::traverse\+Recursive (\begin{DoxyParamCaption}\item[{\hyperlink{classOctree_1_1Callback}{Callback} $\ast$}]{callback,  }\item[{const \hyperlink{structOctree_1_1Point}{Point} \&}]{curr\+Min,  }\item[{const \hyperlink{structOctree_1_1Point}{Point} \&}]{curr\+Max,  }\item[{\hyperlink{structOctree_1_1OctreeNode}{Octree\+Node} $\ast$}]{curr\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classOctree_a6b398a3bf87d71dabc6b72180a551f0b}\label{classOctree_a6b398a3bf87d71dabc6b72180a551f0b}} 
+\index{Octree@{Octree}!\+\_\+cell\+Size@{\+\_\+cell\+Size}}
+\index{\+\_\+cell\+Size@{\+\_\+cell\+Size}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{\+\_\+cell\+Size}{\_cellSize}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+\hyperlink{structOctree_1_1Point}{Point} \hyperlink{classOctree}{Octree}$<$ N $>$\+::\+\_\+cell\+Size\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classOctree_a58bcb3926893c3c8d463e05859fd600c}\label{classOctree_a58bcb3926893c3c8d463e05859fd600c}} 
+\index{Octree@{Octree}!\+\_\+max@{\+\_\+max}}
+\index{\+\_\+max@{\+\_\+max}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{\+\_\+max}{\_max}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+\hyperlink{structOctree_1_1Point}{Point} \hyperlink{classOctree}{Octree}$<$ N $>$\+::\+\_\+max\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classOctree_ab47cc9e63705799270956fc6f769c277}\label{classOctree_ab47cc9e63705799270956fc6f769c277}} 
+\index{Octree@{Octree}!\+\_\+min@{\+\_\+min}}
+\index{\+\_\+min@{\+\_\+min}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{\+\_\+min}{\_min}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+\hyperlink{structOctree_1_1Point}{Point} \hyperlink{classOctree}{Octree}$<$ N $>$\+::\+\_\+min\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classOctree_a1825458b3af1769fc9ce7021b8438574}\label{classOctree_a1825458b3af1769fc9ce7021b8438574}} 
+\index{Octree@{Octree}!\+\_\+root@{\+\_\+root}}
+\index{\+\_\+root@{\+\_\+root}!Octree@{Octree}}
+\subsubsection{\texorpdfstring{\+\_\+root}{\_root}}
+{\footnotesize\ttfamily template$<$class N$>$ \\
+\hyperlink{structOctree_1_1OctreeNode}{Octree\+Node}$\ast$ \hyperlink{classOctree}{Octree}$<$ N $>$\+::\+\_\+root\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{Octree_8h}{Octree.\+h}\end{DoxyCompactItemize}

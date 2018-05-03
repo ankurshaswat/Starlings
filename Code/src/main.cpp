@@ -56,7 +56,7 @@ void renderFlock(std::vector<vec3> positions,std::vector<vec3> velocities);
 
 void updateFlock(Flock flock){
 	while(true){
-		cout<<"Running"<<endl;
+		// cout<<"Running"<<endl;
 		flock.updateNeighbours();
 	}
 }
@@ -597,7 +597,7 @@ int main( void )
 
 																// glutSetWindowTitle
 
-																cout<<"Average Power = "<<flock.getAveragePower()<<" Units"<<endl;
+																cout<<"Average Power = "<<abs(flock.getAveragePower()*(1e12))<<" Units"<<endl;
 																renderFlock(positions,velocities);
 																count++;
 																// std::cout<<count<<std::endl;

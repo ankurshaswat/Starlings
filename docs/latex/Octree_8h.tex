@@ -1,0 +1,59 @@
+\hypertarget{Octree_8h}{}\section{Octree.\+h File Reference}
+\label{Octree_8h}\index{Octree.\+h@{Octree.\+h}}
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+Include dependency graph for Octree.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{Octree_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{Octree_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classOctree}{Octree$<$ N $>$}
+\item 
+struct \hyperlink{structOctree_1_1Point}{Octree$<$ N $>$\+::\+Point}
+\item 
+struct \hyperlink{structOctree_1_1OctreeNode}{Octree$<$ N $>$\+::\+Octree\+Node}
+\item 
+class \hyperlink{classOctree_1_1Callback}{Octree$<$ N $>$\+::\+Callback}
+\item 
+class \hyperlink{classOctree_1_1Iterator}{Octree$<$ N $>$\+::\+Iterator}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{Octree_8h_af5c33ba4be67eaa3d6ff8e2e3db215d2}{C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+DE}(i,  bit,  p,  mid,  new\+Min,  new\+Max)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{Octree_8h_af5c33ba4be67eaa3d6ff8e2e3db215d2}\label{Octree_8h_af5c33ba4be67eaa3d6ff8e2e3db215d2}} 
+\index{Octree.\+h@{Octree.\+h}!C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+DE@{C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+DE}}
+\index{C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+DE@{C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+DE}!Octree.\+h@{Octree.\+h}}
+\subsubsection{\texorpdfstring{C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+DE}{COMPUTE\_SIDE}}
+{\footnotesize\ttfamily \#define C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+DE(\begin{DoxyParamCaption}\item[{}]{i,  }\item[{}]{bit,  }\item[{}]{p,  }\item[{}]{mid,  }\item[{}]{new\+Min,  }\item[{}]{new\+Max }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if} (p >= mid)         \(\backslash\)
+\{                     \(\backslash\)
+    i |= bit;         \(\backslash\)
+    newMin = mid;     \(\backslash\)
+\}                     \(\backslash\)
+else                  \(\backslash\)
+\{                     \(\backslash\)
+    newMax = mid;     \(\backslash\)
+\}
+\end{DoxyCode}

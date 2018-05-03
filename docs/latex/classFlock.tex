@@ -1,0 +1,117 @@
+\hypertarget{classFlock}{}\section{Flock Class Reference}
+\label{classFlock}\index{Flock@{Flock}}
+
+
+{\ttfamily \#include $<$flock.\+h$>$}
+
+
+
+Collaboration diagram for Flock\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFlock__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classFlock_a2a0a514c368e21f718ad7358ed42f3b7}{Flock} ()
+\item 
+void \hyperlink{classFlock_a2bc42b2940b1ef99c120f58ee7918775}{add} (\hyperlink{classBird}{Bird} $\ast$b)
+\item 
+void \hyperlink{classFlock_aba009392cab937cd3911278a56c12bfc}{update} (double dt, float \hyperlink{main_8cpp_a3d47f7e2bf80c3044a1c4fb985d08565}{separation}, float \hyperlink{main_8cpp_a9b609437b0a9c5266747f6a31b8bf90e}{alignment}, float \hyperlink{main_8cpp_ab665ec90cc49c91ed2d1e7e0ca3c386e}{cohesion}, float \hyperlink{main_8cpp_af0df2177301e4061ab72ade2ea437bcd}{target}, bool \hyperlink{main_8cpp_aae9e26fee26af7722250e6b27dbdf37a}{target\+\_\+present})
+\item 
+void \hyperlink{classFlock_abb8739e196b8d11699f06d9670c1768b}{update\+Targets} ()
+\item 
+void \hyperlink{classFlock_a8657b4c8affd9ad6a87c119f592baccb}{create\+Octree} ()
+\item 
+void \hyperlink{classFlock_a597ecc4f44495e610c7ff516d94ca560}{update\+Neighbours} ()
+\item 
+double \hyperlink{classFlock_a9c91990979a1d4cab91c5abd1d3ac983}{get\+Rand} ()
+\item 
+double \hyperlink{classFlock_a65ae41c2c0eaaab0498c5a091d63a776}{get\+Average\+Power} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \hyperlink{classBird}{Bird} $\ast$ $>$ \hyperlink{classFlock_ad742a7776e824da6281031d7d9d88d0c}{m\+Birds}
+\item 
+\hyperlink{classOctree}{Octree}$<$ \hyperlink{structNode}{Node} $>$ $\ast$ \hyperlink{classFlock_a1e280f2ca46cd9c68dc31c5e3d8fec2c}{octree}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFlock_a2a0a514c368e21f718ad7358ed42f3b7}\label{classFlock_a2a0a514c368e21f718ad7358ed42f3b7}} 
+\index{Flock@{Flock}!Flock@{Flock}}
+\index{Flock@{Flock}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{Flock()}{Flock()}}
+{\footnotesize\ttfamily Flock\+::\+Flock (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classFlock_a2bc42b2940b1ef99c120f58ee7918775}\label{classFlock_a2bc42b2940b1ef99c120f58ee7918775}} 
+\index{Flock@{Flock}!add@{add}}
+\index{add@{add}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily void Flock\+::add (\begin{DoxyParamCaption}\item[{\hyperlink{classBird}{Bird} $\ast$}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classFlock_a8657b4c8affd9ad6a87c119f592baccb}\label{classFlock_a8657b4c8affd9ad6a87c119f592baccb}} 
+\index{Flock@{Flock}!create\+Octree@{create\+Octree}}
+\index{create\+Octree@{create\+Octree}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{create\+Octree()}{createOctree()}}
+{\footnotesize\ttfamily void Flock\+::create\+Octree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classFlock_a65ae41c2c0eaaab0498c5a091d63a776}\label{classFlock_a65ae41c2c0eaaab0498c5a091d63a776}} 
+\index{Flock@{Flock}!get\+Average\+Power@{get\+Average\+Power}}
+\index{get\+Average\+Power@{get\+Average\+Power}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{get\+Average\+Power()}{getAveragePower()}}
+{\footnotesize\ttfamily double Flock\+::get\+Average\+Power (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classFlock_a9c91990979a1d4cab91c5abd1d3ac983}\label{classFlock_a9c91990979a1d4cab91c5abd1d3ac983}} 
+\index{Flock@{Flock}!get\+Rand@{get\+Rand}}
+\index{get\+Rand@{get\+Rand}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{get\+Rand()}{getRand()}}
+{\footnotesize\ttfamily double Flock\+::get\+Rand (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classFlock_aba009392cab937cd3911278a56c12bfc}\label{classFlock_aba009392cab937cd3911278a56c12bfc}} 
+\index{Flock@{Flock}!update@{update}}
+\index{update@{update}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Flock\+::update (\begin{DoxyParamCaption}\item[{double}]{dt,  }\item[{float}]{separation,  }\item[{float}]{alignment,  }\item[{float}]{cohesion,  }\item[{float}]{target,  }\item[{bool}]{target\+\_\+present }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classFlock_a597ecc4f44495e610c7ff516d94ca560}\label{classFlock_a597ecc4f44495e610c7ff516d94ca560}} 
+\index{Flock@{Flock}!update\+Neighbours@{update\+Neighbours}}
+\index{update\+Neighbours@{update\+Neighbours}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{update\+Neighbours()}{updateNeighbours()}}
+{\footnotesize\ttfamily void Flock\+::update\+Neighbours (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classFlock_abb8739e196b8d11699f06d9670c1768b}\label{classFlock_abb8739e196b8d11699f06d9670c1768b}} 
+\index{Flock@{Flock}!update\+Targets@{update\+Targets}}
+\index{update\+Targets@{update\+Targets}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{update\+Targets()}{updateTargets()}}
+{\footnotesize\ttfamily void Flock\+::update\+Targets (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classFlock_ad742a7776e824da6281031d7d9d88d0c}\label{classFlock_ad742a7776e824da6281031d7d9d88d0c}} 
+\index{Flock@{Flock}!m\+Birds@{m\+Birds}}
+\index{m\+Birds@{m\+Birds}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{m\+Birds}{mBirds}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{classBird}{Bird}$\ast$$>$ Flock\+::m\+Birds}
+
+\mbox{\Hypertarget{classFlock_a1e280f2ca46cd9c68dc31c5e3d8fec2c}\label{classFlock_a1e280f2ca46cd9c68dc31c5e3d8fec2c}} 
+\index{Flock@{Flock}!octree@{octree}}
+\index{octree@{octree}!Flock@{Flock}}
+\subsubsection{\texorpdfstring{octree}{octree}}
+{\footnotesize\ttfamily \hyperlink{classOctree}{Octree}$<$\hyperlink{structNode}{Node}$>$$\ast$ Flock\+::octree}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{flock_8h}{flock.\+h}\item 
+\hyperlink{flock_8cpp}{flock.\+cpp}\end{DoxyCompactItemize}

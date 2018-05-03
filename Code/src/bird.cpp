@@ -20,6 +20,7 @@ Bird::Bird()
 	mPosition.x = -5.0f + 2*5.0f*getRand();
 	mPosition.y = -5.0f + 2*5.0f*getRand();
 	mPosition.z = -5.0f + 2*5.0f*getRand();
+	
 
 }
 
@@ -93,12 +94,12 @@ void Bird::addVelocity()
 
 
 
-glm::vec3 Bird::cohesion(std::vector<Bird*> neighbours)
+glm::vec3 Bird::cohesion()
 {
 	int count = 0;
 	glm::vec3 myPos = getPosition();
 	glm::vec3 sum = myPos;
-	std::vector<Bird*>::iterator iter;
+	std::set<Bird*>::iterator iter;
 	for(iter=neighbours.begin(); iter!=neighbours.end(); iter++)
 	{
 		sum += (*iter)->getPosition();
@@ -166,12 +167,12 @@ glm::vec3 Bird::followTarget()
 
 
 
-glm::vec3 Bird::aligment(std::vector<Bird*> neighbours)
+glm::vec3 Bird::aligment()
 {
 	glm::vec3 mean(0,0,0);
 	int count = 0;
 
-	std::vector<Bird*>::iterator iter;
+	std::set<Bird*>::iterator iter;
 	for(iter=neighbours.begin(); iter!=neighbours.end(); iter++)
 	{
 		mean += (*iter)->getVelocity();
@@ -185,14 +186,14 @@ glm::vec3 Bird::aligment(std::vector<Bird*> neighbours)
 	return mean;
 }
 
-glm::vec3 Bird::separate(std::vector<Bird*> neighbours)
+glm::vec3 Bird::separate()
 {
 	glm::vec3 mean(0,0,0);
 	glm::vec3 myPos = getPosition();
 
 	int count = 0;
 
-	std::vector<Bird*>::iterator iter;
+	std::set<Bird*>::iterator iter;
 	for(iter=neighbours.begin(); iter!=neighbours.end(); iter++)
 	{
 		glm::vec3 neighbourPos = (*iter)->getPosition();

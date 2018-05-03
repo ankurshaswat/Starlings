@@ -429,6 +429,7 @@ int main( void )
 
 								Flock flock= Flock();
 								// cout<<"Initail pos-"<<endl;
+								flock.createOctree();
 								for(int i=0;i<FLOCK_SIZE;i++){
 									// Bird bird= Bird();
 									flock.add(new Bird());
@@ -571,7 +572,7 @@ int main( void )
 																timer.tick();
 																dt = timer.getDeltaTime();
 																fps = timer.getFPS();
-
+																flock.updateNeighbours();
 																flock.update(dt,separation,alignment,cohesion,target,target_present);
 
 																// cout<<"FLOCK-"<<endl<<endl;

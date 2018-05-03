@@ -5,6 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
 #include<vector>
+#include<set>
 
 //Weights for behaviour
 #define SEPARATION_WEIGHT 0.003
@@ -34,13 +35,25 @@ public:
 	
 	double getPower();
 
-	glm::vec3 separate(std::vector<Bird*> neighbours);
-	glm::vec3 aligment(std::vector<Bird*> neighbours);
-	glm::vec3 cohesion(std::vector<Bird*> neighbours);
+	glm::vec3 separate();
+	glm::vec3 aligment();
+	glm::vec3 cohesion();
 	glm::vec3 followTarget();
+
+	struct compare {
+        bool operator()(Bird* a, Bird* b) {
+		  glm::vec3 apos=a->getPosition(), bpos=b->getPosition();	
+          return glm::all(glm::lessThan(apos, bpos));        }   
+    };
+	
+	std::set<Bird*,compare> neighbours;
+	
     double getRand(); //simple utility function 
 
 	glm::vec3 mTarget;
+
+	
+
 private:
     glm::vec3 mPosition;
 	glm::vec3 mVelocity;

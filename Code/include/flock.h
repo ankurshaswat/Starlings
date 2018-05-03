@@ -17,6 +17,7 @@ public:
 	void updateTargets();
 
 	double getRand();
+	double getAveragePower();
 	std::vector<Bird*> mBirds;
 
 };

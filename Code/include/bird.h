@@ -31,6 +31,8 @@ public:
 
 
 	void addVelocity();
+	
+	double getPower();
 
 	glm::vec3 separate(std::vector<Bird*> neighbours);
 	glm::vec3 aligment(std::vector<Bird*> neighbours);
@@ -42,5 +44,6 @@ public:
 private:
     glm::vec3 mPosition;
 	glm::vec3 mVelocity;
+	glm::vec3 acceleration;
 };
 #endif // __bird_h__

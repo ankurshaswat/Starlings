@@ -25,6 +25,9 @@ Bird::Bird()
 
 void Bird::update(double dt, glm::vec3 velocity)
 {
+
+	vec3 prevVelocity = mVelocity;
+
 	mVelocity += velocity;
 	if(glm::length(mVelocity) > MAX_SPEED)
 	{
@@ -62,6 +65,7 @@ void Bird::update(double dt, glm::vec3 velocity)
 	mPosition.y = pos.y;
     mPosition.z=pos.z;
 
+    acceleration = (mVelocity - prevVelocity);
 }
 
 glm::vec3 Bird::getPosition()
@@ -214,4 +218,10 @@ glm::vec3 Bird::separate(std::vector<Bird*> neighbours)
 glm::vec3 Bird::getVelocity()
 {
 	return mVelocity;
+}
+
+double Birf::getPower(){
+
+	//Assuming unit mass
+	return  glm::dot(acceleration,mVelocity);
 }

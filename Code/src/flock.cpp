@@ -11,6 +11,15 @@ Flock::Flock()
 
 }
 
+double Flock::getAveragePower(){
+	double Power = 0;
+	for (auto it: mBirds){
+		Power+=(*it).getPower();
+	}
+
+	return (Power/(mBirds.size()));
+}
+
 double Flock::getRand(){
     return ( ((double) rand() / (RAND_MAX)) * 2 ) -1;
 }

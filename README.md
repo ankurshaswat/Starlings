@@ -1,6 +1,6 @@
 # Starlings
 
-Documentation link [Here](https://github.com/ankurshaswat/Starlings/blob/master/docs/html/index.html)
+Documentation link [Here](https://ankurshaswat.github.io/Starlings/blob/master/docs/html/index.html)
 
 
 To build :-

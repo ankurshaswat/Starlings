@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <future>
 #include <vector>
 // #include <conio>
 using namespace std;
@@ -53,6 +54,12 @@ void renderBoid(vec3 pos,vec3 velocity);
 
 void renderFlock(std::vector<vec3> positions,std::vector<vec3> velocities);
 
+void updateFlock(Flock flock){
+	while(true){
+		cout<<"Running"<<endl;
+		flock.updateNeighbours();
+	}
+}
 
 int main( void )
 {
@@ -437,6 +444,8 @@ int main( void )
 									// cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
 								}
 								int count=0;
+																auto future1 = async(launch::async, &updateFlock,flock);
+
 								do {
 
 																glm::vec3 cameraPos = glm::vec3(4.0f, 3.0f, -3.0f);
@@ -572,7 +581,10 @@ int main( void )
 																timer.tick();
 																dt = timer.getDeltaTime();
 																fps = timer.getFPS();
-																flock.updateNeighbours();
+
+
+
+																// flock.updateNeighbours();
 																flock.update(dt,separation,alignment,cohesion,target,target_present);
 
 																// cout<<"FLOCK-"<<endl<<endl;
@@ -582,6 +594,10 @@ int main( void )
 																	// glm::vec3 temp=(*it).getPosition();
 																	// cout<<temp.x<<" "<<temp.y<<" "<<temp.z<<endl;
 																}
+
+																// glutSetWindowTitle
+
+																cout<<"Average Power = "<<flock.getAveragePower()<<" Units"<<endl;
 																renderFlock(positions,velocities);
 																count++;
 																// std::cout<<count<<std::endl;

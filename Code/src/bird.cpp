@@ -27,7 +27,7 @@ Bird::Bird()
 void Bird::update(double dt, glm::vec3 velocity)
 {
 
-	vec3 prevVelocity = mVelocity;
+	glm::vec3 prevVelocity = mVelocity;
 
 	mVelocity += velocity;
 	if(glm::length(mVelocity) > MAX_SPEED)
@@ -221,7 +221,7 @@ glm::vec3 Bird::getVelocity()
 	return mVelocity;
 }
 
-double Birf::getPower(){
+double Bird::getPower(){
 
 	//Assuming unit mass
 	return  glm::dot(acceleration,mVelocity);
